@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 90" width="280" height="90">
+  <!-- No background - transparent -->
+  
+  <!-- WORKVIA text - White for visibility on dark background -->
+  <text x="140" y="40" font-family="'Poppins', 'Arial Black', sans-serif" font-size="36" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">
+    WORKVIA
+  </text>
+  
+  <!-- RECRUITMENT text - Gold -->
+  <text x="140" y="60" font-family="'Poppins', Arial, sans-serif" font-size="13" font-weight="700" fill="#D4AF37" text-anchor="middle" letter-spacing="5">
+    RECRUITMENT
+  </text>
+  
+  <!-- Decorative line with gradient -->
+  <defs>
+    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#B8941E;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8941E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <line x1="30" y1="70" x2="250" y2="70" stroke="url(#lineGradient)" stroke-width="2.5"/>
+  
+  <!-- Decorative arrow pointing down -->
+  <path d="M 135 72 L 140 78 L 145 72 Z" fill="#D4AF37"/>
+</svg>

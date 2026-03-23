@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Work Via - Twoja droga do pracy w Zachodniej Europie. Profesjonalna agencja rekrutacyjna specjalizująca się w zatrudnieniu w krajach UE.">
+    <meta name="keywords" content="praca za granicą, rekrutacja, Zachodnia Europa, agencja pracy">
+    <meta property="og:title" content="Work Via - Recruitment | Praca w Zachodniej Europie">
+    <meta property="og:description" content="Profesjonalna agencja rekrutacyjna - znajdź swoją wymarzoną pracę w Europie">
+    <meta property="og:type" content="website">
+    <title>Work Via - Recruitment | Praca w Zachodniej Europie</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/logo.svg" alt="Work Via Logo" class="logo-img">
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#oferty" class="nav-link">Oferty pracy</a></li>
+                <li><a href="#o-nas" class="nav-link">O nas</a></li>
+                <li><a href="#rekruter" class="nav-link">Zostań rekruterem</a></li>
+                <li><a href="#mapa" class="nav-link">Mapa ofert</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
+                <li class="social-nav">
+                    <a href="#" class="social-icon" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                    <a href="#" class="social-icon" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="particles" id="particles"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Twoja droga</span>
+                    <span class="title-line">do kariery</span>
+                    <span class="title-line highlight">w Europie</span>
+                </h1>
+                <p class="hero-subtitle">Profesjonalna rekrutacja do pracy w Zachodniej Europie. Sprawdzone oferty, bezpieczne warunki, wsparcie na każdym etapie.</p>
+                <div class="hero-buttons">
+                    <a href="#oferty" class="btn btn-primary">Przeglądaj oferty</a>
+                    <a href="#kontakt" class="btn btn-secondary">Skontaktuj się</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <div class="image-circle">
+                        <img src="assets/team/magdalena.jpg" alt="Magdalena Syrnicka - Założycielka Work Via" onerror="this.src='assets/placeholder-person.jpg'">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder-section">
+        <div class="container">
+            <div class="founder-grid">
+                <div class="founder-image" data-aos="fade-right">
+                    <div class="image-frame">
+                        <img src="assets/team/magdalena2.jpg" alt="Magdalena Syrnicka - Założycielka Work Via" onerror="this.src='assets/placeholder-person.jpg'">
+                        <div class="image-accent"></div>
+                    </div>
+                </div>
+                <div class="founder-content" data-aos="fade-left">
+                    <p class="founder-label">Założycielka Work Via</p>
+                    <h2 class="founder-name">Magdalena Syrnicka</h2>
+                    <p class="founder-subtitle">Specjalistka od rekrutacji i kontaktu z klientami</p>
+                    <div class="founder-description">
+                        <p>
+                            Zawsze znajdzie czas, żeby pomóc, odpowiedzieć na każde pytanie i wspierać Twój rozwój. Poza prowadzeniem firmy i głównym kontaktem z klientami, również aktywnie uczestniczy w rekrutacji, dbając o to, żeby proces był szybki, przejrzysty i przyjazny dla kandydatów.
+                        </p>
+                        <blockquote class="founder-quote">
+                            "Wierzę, że każdy zasługuje na szansę do lepszej przyszłości. Work Via to nie tylko agencja – tomost łączący marzenia z możliwościami."
+                        </blockquote>
+                    </div>
+                    <div class="founder-stats">
+                        <div class="founder-stat">
+                            <div class="stat-value">12+</div>
+                            <div class="stat-label">Lat doświadczenia</div>
+                        </div>
+                        <div class="founder-stat">
+                            <div class="stat-value">5000+</div>
+                            <div class="stat-label">Zadowolonych klientów</div>
+                        </div>
+                        <div class="founder-stat">
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Profesjonalizm</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Offers Slider -->
+    <section class="jobs-slider" id="oferty">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Najnowsze oferty pracy</h2>
+                <p class="section-subtitle">Wybierz swoją wymarzoną pracę spośród naszych sprawdzonych ofert</p>
+            </div>
+            <div class="slider-container">
+                <button class="slider-btn slider-btn-prev" id="sliderPrev" aria-label="Previous slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="slider-wrapper">
+                    <div class="slider-track" id="sliderTrack">
+                        <!-- Job cards will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                <button class="slider-btn slider-btn-next" id="sliderNext" aria-label="Next slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="oferty.html" class="btn btn-outline">Zobacz wszystkie oferty</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Dlaczego Work Via?</h2>
+                <p class="section-subtitle">Twój sukces to nasz priorytet</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Sprawdzone oferty</h3>
+                    <p class="feature-description">Współpracujemy tylko z zaufanymi pracodawcami. Każda oferta jest weryfikowana.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Wsparcie 24/7</h3>
+                    <p class="feature-description">Nasz zespół jest zawsze gotowy, aby pomóc Ci na każdym etapie procesu.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Najwyższe standardy</h3>
+                    <p class="feature-description">Dbamy o transparentność, bezpieczeństwo i komfort naszych kandydatów.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Szybki proces</h3>
+                    <p class="feature-description">Sprawna rekrutacja – od aplikacji do wyjazdu w kilka tygodni.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Kompleksowa pomoc</h3>
+                    <p class="feature-description">Pomoc w zakwaterowaniu, dokumentach i adaptacji w nowym kraju.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Rozwój kariery</h3>
+                    <p class="feature-description">Możliwości awansu i szkoleń zawodowych w międzynarodowym środowisku.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about-us" id="o-nas">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Poznaj nasz zespół</h2>
+                <p class="section-subtitle">
+                    <strong>Work Via</strong> to profesjonalna agencja rekrutacyjna specjalizująca się w zatrudnieniu pracowników w krajach Zachodniej Europy. 
+                    Nasza misja to budowanie mostów między talentami a najlepszymi pracodawcami w Europie.
+                </p>
+            </div>
+            
+            <div class="team-grid">
+                <!-- Sebastian -->
+                <div class="team-member" data-aos="fade-up">
+                    <div class="team-image">
+                        <img src="assets/team/sebastian.jpg" alt="Sebastian" onerror="this.src='assets/placeholder-person.jpg'">
+                        <div class="team-overlay">
+                            <div class="team-role">Guru IT i technologii</div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3 class="team-name">Sebastian</h3>
+                        <p class="team-subtitle">– nasz <strong>guru</strong> od IT i technologii.</p>
+                        <p class="team-description">
+                            Dzięki niemu wszystko działa jak w zegarku. Poza tym ma fantastyczne poczucie humoru i potrafi rozbawić nawet w najbardziej stresującym dniu. Proces, możesz poprosić go o radę w sprawach technicznych, a przy okazji dowiesz się czegoś nowego o nowoczesnych narzędziach. Sebastian lubi też dzielić się trikami i skrótami, które ułatwiają codzienną pracę – warto go o to zapytać!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Magdalena -->
+                <div class="team-member" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-image">
+                        <img src="assets/team/magdalena2.jpg" alt="Magdalena" onerror="this.src='assets/placeholder-person.jpg'">
+                        <div class="team-overlay">
+                            <div class="team-role">Założycielka i współtworczyni</div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3 class="team-name">Magdalena</h3>
+                        <p class="team-subtitle">– <strong>założycielka</strong> i współtworczyni WorkVIA</p>
+                        <p class="team-description">
+                            Specjalistka od rekrutacji i kontaktu z klientami. Zawsze znajdzie czas, żeby pomóc, odpowiedzieć na każde pytanie i wspierać Twój rozwój. Poza prowadzeniem firmy i głównym kontaktem z klientami, również aktywnie uczestniczy w rekrutacji, dbając o to, żeby proces był szybki, przejrzysty i przyjazny dla kandydatów.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Szymon -->
+                <div class="team-member" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-image">
+                        <img src="assets/team/szymon.jpg" alt="Szymon" onerror="this.src='assets/placeholder-person.jpg'">
+                        <div class="team-overlay">
+                            <div class="team-role">Ekspert od rekrutacji</div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3 class="team-name">Szymon</h3>
+                        <p class="team-subtitle">– nasz <strong>ekspert</strong> od rekrutacji.</p>
+                        <p class="team-description">
+                            Wie wszystko o portalach pracy, prowadzeniu rozmów z kandydatami i skutecznych procesach rekrutacyjnych. Jest bardzo przyjazny, cierpliwy. Zawsze chętny, żeby podzielić się praktycznymi wskazówkami. Choć rekrutacja jest jego głównym obszarem, również wspiera inne aspekty pracy w firmie, żeby procesy były sprawne i przyjemne dla wszystkich.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recruitment Process -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Jak to działa?</h2>
+                <p class="section-subtitle">Prosty proces w 5 krokach</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step" data-aos="fade-up">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Wybierz ofertę</h3>
+                        <p class="step-description">Przeglądaj nasze aktualne oferty i znajdź idealną dla siebie</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Aplikuj online</h3>
+                        <p class="step-description">Wypełnij prosty formularz aplikacyjny i prześlij dokumenty</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Rozmowa kwalifikacyjna</h3>
+                        <p class="step-description">Spotkanie z naszym rekruterem – online lub stacjonarnie</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Przygotowanie</h3>
+                        <p class="step-description">Pomoc w dokumentach, zakwaterowaniu i organizacji wyjazdu</p>
+                    </div>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Start pracy!</h3>
+                        <p class="step-description">Rozpoczynasz pracę z pełnym wsparciem naszego zespołu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Become a Recruiter -->
+    <section class="recruiter-section" id="rekruter">
+        <div class="container">
+            <div class="recruiter-grid">
+                <div class="recruiter-content" data-aos="fade-right">
+                    <h2 class="section-title">Zostań częścią naszego zespołu</h2>
+                    <p class="recruiter-text">
+                        Szukamy ambitnych i zmotywowanych osób do pracy jako rekruterzy. Jeśli lubisz kontakt z ludźmi, masz talent do komunikacji i chcesz rozwijać się w branży HR – to miejsce dla Ciebie!
+                    </p>
+                    <ul class="recruiter-benefits">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Atrakcyjne wynagrodzenie + prowizja
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Praca hybrydowa lub zdalna
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Szkolenia i rozwój zawodowy
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Międzynarodowe środowisko pracy
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Elastyczne godziny pracy
+                        </li>
+                    </ul>
+                    <a href="#kontakt" class="btn btn-primary">Aplikuj teraz</a>
+                </div>
+                <div class="recruiter-image" data-aos="fade-left">
+                    <div class="image-wrapper">
+                        <img src="assets/recruiter.jpg" alt="Zostań rekruterem Work Via" onerror="this.src='assets/placeholder-person.jpg'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="mapa">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nasze lokalizacje</h2>
+                <p class="section-subtitle">Działamy w 12 krajach Zachodniej Europy</p>
+            </div>
+            <div class="map-container" data-aos="fade-up">
+                <div class="countries-grid">
+                    <div class="country-card">
+                        <div class="country-flag">🇩🇪</div>
+                        <h4>Niemcy</h4>
+                        <p class="country-jobs">42 oferty</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇳🇱</div>
+                        <h4>Holandia</h4>
+                        <p class="country-jobs">38 ofert</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇧🇪</div>
+                        <h4>Belgia</h4>
+                        <p class="country-jobs">24 oferty</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇫🇷</div>
+                        <h4>Francja</h4>
+                        <p class="country-jobs">18 ofert</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇬🇧</div>
+                        <h4>Wielka Brytania</h4>
+                        <p class="country-jobs">15 ofert</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇮🇪</div>
+                        <h4>Irlandia</h4>
+                        <p class="country-jobs">8 ofert</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇦🇹</div>
+                        <h4>Austria</h4>
+                        <p class="country-jobs">12 ofert</p>
+                    </div>
+                    <div class="country-card">
+                        <div class="country-flag">🇨🇭</div>
+                        <h4>Szwajcaria</h4>
+                        <p class="country-jobs">6 ofert</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Aktualności i porady</h2>
+                <p class="section-subtitle">Sprawdź nasz blog</p>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-image">
+                        <div class="blog-category">Porady</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Jak przygotować się do pracy w Niemczech?</h3>
+                        <p class="blog-excerpt">Praktyczny przewodnik dla osób planujących wyjazd do pracy w Niemczech...</p>
+                        <a href="#" class="blog-link">Czytaj więcej →</a>
+                    </div>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image">
+                        <div class="blog-category">Aktualności</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Nowe oferty w sektorze logistycznym</h3>
+                        <p class="blog-excerpt">Właśnie uruchomiliśmy 25 nowych stanowisk w branży logistycznej...</p>
+                        <a href="#" class="blog-link">Czytaj więcej →</a>
+                    </div>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-image">
+                        <div class="blog-category">Poradnik</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">Ubezpieczenie zdrowotne za granicą</h3>
+                        <p class="blog-excerpt">Wszystko co musisz wiedzieć o ubezpieczeniu podczas pracy w UE...</p>
+                        <a href="#" class="blog-link">Czytaj więcej →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="kontakt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Skontaktuj się z nami</h2>
+                <p class="section-subtitle">Jesteśmy do Twojej dyspozycji</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Adres</h4>
+                            <p>WorkVia Recruitment<br>Magdalena Syrnicka<br>89356 Haldenwang, Deutschland</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Telefon</h4>
+                            <p>+48 453 310 569<br>Pon-Pt: 8:00 - 18:00</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>workvia.recruitment@gmail.com<br>Odpowiadamy w 24h</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Godziny otwarcia</h4>
+                            <p>Pon-Pt: 8:00 - 18:00<br>Sob: 9:00 - 14:00</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" data-aos="fade-left">
+                    <div class="form-group">
+                        <label for="name">Imię i nazwisko</label>
+                        <input type="text" id="name" name="name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Temat</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Wybierz temat</option>
+                            <option value="job">Pytanie o ofertę pracy</option>
+                            <option value="recruiter">Aplikacja na stanowisko rekrutera</option>
+                            <option value="other">Inne</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Wiadomość</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="assets/logo.svg" alt="Work Via Logo" class="footer-logo">
+                    <p class="footer-text">Profesjonalna agencja rekrutacyjna specjalizująca się w zatrudnieniu w Zachodniej Europie.</p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Szybkie linki</h4>
+                    <ul class="footer-links">
+                        <li><a href="#oferty">Oferty pracy</a></li>
+                        <li><a href="#o-nas">O nas</a></li>
+                        <li><a href="#rekruter">Zostań rekruterem</a></li>
+                        <li><a href="#mapa">Mapa ofert</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Informacje prawne</h4>
+                    <ul class="footer-links">
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
+                        <li><a href="polityka-cookies.html">Polityka cookies</a></li>
+                        <li><a href="regulamin.html">Regulamin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p class="footer-text">Zapisz się i otrzymuj najnowsze oferty pracy!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Twój email" required>
+                        <button type="submit" class="btn btn-primary">Zapisz się</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Work Via Recruitment. Wszystkie prawa zastrzeżone.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem;">WorkVia Recruitment | Magdalena Syrnicka | 89356 Haldenwang, Deutschland | USt-IdNr: 121/279/80991</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>Ta strona używa plików cookies</h4>
+                <p>Używamy plików cookie, aby poprawić jakość przeglądania, wyświetlać spersonalizowane treści i analizować ruch na stronie. Klikając "Akceptuję wszystkie", wyrażasz zgodę na używanie wszystkich plików cookie. 
+                <a href="polityka-cookies.html">Dowiedz się więcej</a></p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="btn-cookie-settings" id="cookieSettings">Ustawienia</button>
+                <button class="btn-cookie-accept" id="cookieAccept">Akceptuję wszystkie</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cookies.js"></script>
+</body>
+</html>

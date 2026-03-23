@@ -1,0 +1,252 @@
+[
+    {
+        "id": 1,
+        "title": "Operator wózka widłowego",
+        "company": "Logistics Pro GmbH",
+        "country": "Niemcy",
+        "flag": "🇩🇪",
+        "location": "Hamburg",
+        "salary": "3500 - 4200 EUR",
+        "type": "Pełny etat",
+        "experience": "1-2 lata",
+        "tags": ["Wózek widłowy", "Logistyka", "3 zmiany"],
+        "description": "Poszukujemy operatora wózka widłowego do pracy w nowoczesnym centrum logistycznym w Hamburgu.",
+        "requirements": [
+            "Aktualne uprawnienia UDT na wózki widłowe",
+            "Min. 1 rok doświadczenia",
+            "Znajomość języka niemieckiego lub angielskiego mile widziana",
+            "Dyspozycyjność na 3 zmiany"
+        ],
+        "benefits": [
+            "Atrakcyjne wynagrodzenie + premie",
+            "Zakwaterowanie zapewnione",
+            "Transport na trasie Polska-Niemcy",
+            "Umowa na czas określony z możliwością przedłużenia"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Pracownik produkcji",
+        "company": "Dutch Manufacturing B.V.",
+        "country": "Holandia",
+        "flag": "🇳🇱",
+        "location": "Rotterdam",
+        "salary": "2800 - 3400 EUR",
+        "type": "Pełny etat",
+        "experience": "Bez doświadczenia",
+        "tags": ["Produkcja", "Pakowanie", "Zmianowy"],
+        "description": "Praca w fabryce produkującej komponenty elektroniczne. Nie wymagamy doświadczenia - zapewniamy szkolenie.",
+        "requirements": [
+            "Brak wymaganego doświadczenia",
+            "Dokładność i sumienność",
+            "Praca w systemie zmianowym",
+            "Gotowość do pracy w weekend"
+        ],
+        "benefits": [
+            "Szkolenie BHP i zawodowe",
+            "Zakwaterowanie w komfortowych warunkach",
+            "Dodatki za pracę w weekend",
+            "Możliwość rozwoju w firmie"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Kierowca kat. CE",
+        "company": "Transport Solutions SA",
+        "country": "Belgia",
+        "flag": "🇧🇪",
+        "location": "Antwerpia",
+        "salary": "4000 - 5500 EUR",
+        "type": "Pełny etat",
+        "experience": "2+ lata",
+        "tags": ["Transport", "Kat. CE", "Długie trasy"],
+        "description": "Firma transportowa poszukuje doświadczonych kierowców do tras międzynarodowych. Nowoczesna flota pojazdów.",
+        "requirements": [
+            "Prawo jazdy kat. CE",
+            "Karta kierowcy",
+            "Min. 2 lata doświadczenia w transporcie międzynarodowym",
+            "Znajomość języka angielskiego podstawowa"
+        ],
+        "benefits": [
+            "Wysokie stawki za km",
+            "Nowe pojazdy Volvo/Mercedes",
+            "Diety zagraniczne",
+            "Praca w systemie 3/1"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Monter konstrukcji stalowych",
+        "company": "Steel Build GmbH",
+        "country": "Niemcy",
+        "flag": "🇩🇪",
+        "location": "Frankfurt",
+        "salary": "3800 - 4800 EUR",
+        "type": "Pełny etat",
+        "experience": "2+ lata",
+        "tags": ["Konstrukcje", "Spawanie", "Budowa"],
+        "description": "Montaż konstrukcji stalowych na budowach w okolicach Frankfurtu. Duże projekty infrastrukturalne.",
+        "requirements": [
+            "Doświadczenie przy montażu konstrukcji stalowych",
+            "Wysokościówka mile widziana",
+            "Uprawnienia spawalnicze będą atutem",
+            "Własne narzędzia podstawowe"
+        ],
+        "benefits": [
+            "Wynagrodzenie netto",
+            "Zakwaterowanie + wyżywienie",
+            "Dodatek za wysokość",
+            "Stabilne zatrudnienie - długie kontrakty"
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Pracownik magazynu",
+        "company": "Warehouse Solutions",
+        "country": "Holandia",
+        "flag": "🇳🇱",
+        "location": "Amsterdam",
+        "salary": "2600 - 3200 EUR",
+        "type": "Pełny etat",
+        "experience": "Bez doświadczenia",
+        "tags": ["Magazyn", "Picking", "Order picker"],
+        "description": "Kompletowanie zamówień w nowoczesnym centrum dystrybucyjnym. Praca na wysokościówce.",
+        "requirements": [
+            "Nie wymagamy doświadczenia",
+            "Brak lęku wysokości",
+            "Dobra kondycja fizyczna",
+            "Umiejętność pracy w zespole"
+        ],
+        "benefits": [
+            "Pełne przeszkolenie na order pickera",
+            "Kompleksowa opieka od wyjazdu",
+            "Dodatki nocne i weekendowe",
+            "Możliwość przedłużenia kontraktu"
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Elektryk przemysłowy",
+        "company": "Industrial Electric Ltd",
+        "country": "Wielka Brytania",
+        "flag": "🇬🇧",
+        "location": "Manchester",
+        "salary": "3200 - 4500 GBP",
+        "type": "Pełny etat",
+        "experience": "3+ lata",
+        "tags": ["Elektryk", "Automatyka", "Przemysł"],
+        "description": "Obsługa i konserwacja linii produkcyjnych w dużym zakładzie przemysłowym.",
+        "requirements": [
+            "Uprawnienia elektryczne SEP do 1kV",
+            "Min. 3 lata doświadczenia w przemyśle",
+            "Znajomość układów automatyki",
+            "Komunikatywna znajomość języka angielskiego"
+        ],
+        "benefits": [
+            "Bardzo wysokie stawki godzinowe",
+            "Nadgodziny dobrze płatne",
+            "Prywatna opieka medyczna",
+            "Long-term contract"
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Operator CNC",
+        "company": "Precision Parts SARL",
+        "country": "Francja",
+        "flag": "🇫🇷",
+        "location": "Lyon",
+        "salary": "3000 - 3800 EUR",
+        "type": "Pełny etat",
+        "experience": "1-2 lata",
+        "tags": ["CNC", "Frezowanie", "Produkcja"],
+        "description": "Obsługa obrabiarek CNC w zakładzie produkującym precyzyjne części metalowe dla przemysłu lotniczego.",
+        "requirements": [
+            "Doświadczenie przy obsłudze obrabiarek CNC",
+            "Umiejętność czytania rysunku technicznego",
+            "Znajomość podstaw programowania Fanuc/Siemens",
+            "Dokładność i precyzja"
+        ],
+        "benefits": [
+            "Nowoczesny park maszynowy",
+            "Szkolenia techniczne",
+            "Stabilne zatrudnienie",
+            "Dodatki za jakość produkcji"
+        ]
+    },
+    {
+        "id": 8,
+        "title": "Pracownik budowlany",
+        "company": "Construction Pro AG",
+        "country": "Szwajcaria",
+        "flag": "🇨🇭",
+        "location": "Zurych",
+        "salary": "5000 - 6500 CHF",
+        "type": "Pełny etat",
+        "experience": "1+ rok",
+        "tags": ["Budowa", "Wykończenia", "Remonty"],
+        "description": "Prace budowlane i wykończeniowe przy obiektach mieszkalnych i komercyjnych w Zurychu i okolicach.",
+        "requirements": [
+            "Doświadczenie w branży budowlanej",
+            "Znajomość podstawowych technik budowlanych",
+            "Podstawowa znajomość języka niemieckiego lub angielskiego",
+            "Własne podstawowe narzędzia"
+        ],
+        "benefits": [
+            "Najwyższe stawki w Europie",
+            "Zakwaterowanie w dobrym standardzie",
+            "Regularne wypłaty co 2 tygodnie",
+            "Możliwość pracy całorocznej"
+        ]
+    },
+    {
+        "id": 9,
+        "title": "Spawacz MAG/MIG",
+        "company": "WeldTech Industries",
+        "country": "Niemcy",
+        "flag": "🇩🇪",
+        "location": "Monachium",
+        "salary": "4200 - 5500 EUR",
+        "type": "Pełny etat",
+        "experience": "2+ lata",
+        "tags": ["Spawanie", "MAG", "MIG"],
+        "description": "Spawanie elementów stalowych i aluminiowych w renomowanej firmie produkującej komponenty dla przemysłu motoryzacyjnego.",
+        "requirements": [
+            "Uprawnienia spawalnicze MAG/MIG",
+            "Min. 2 lata praktyki spawalniczej",
+            "Umiejętność czytania dokumentacji technicznej",
+            "Dokładność i jakość wykonywanych prac"
+        ],
+        "benefits": [
+            "Bardzo wysokie wynagrodzenie",
+            "Dodatki za nadgodziny",
+            "Nowoczesne stanowisko pracy",
+            "Możliwość podnoszenia kwalifikacji"
+        ]
+    },
+    {
+        "id": 10,
+        "title": "Lakiernik samochodowy",
+        "company": "AutoFinish B.V.",
+        "country": "Holandia",
+        "flag": "🇳🇱",
+        "location": "Utrecht",
+        "salary": "3200 - 4200 EUR",
+        "type": "Pełny etat",
+        "experience": "2+ lata",
+        "tags": ["Lakiernictwo", "Automotive", "Przygotowanie"],
+        "description": "Lakierowanie pojazdów osobowych i dostawczych w profesjonalnej lakierni samochodowej.",
+        "requirements": [
+            "Doświadczenie w lakiernictwie samochodowym",
+            "Znajomość technik przygotowania powierzchni",
+            "Umiejętność doboru kolorów",
+            "Dokładność i estetyka wykonania"
+        ],
+        "benefits": [
+            "Praca w profesjonalnej lakierni",
+            "Najnowszy sprzęt i materiały",
+            "System premiowy",
+            "Zakwaterowanie w apartamentach"
+        ]
+    }
+]

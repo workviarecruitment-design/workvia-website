@@ -1,0 +1,16 @@
+<!-- Instrukcja: Dodaj logo -->
+<!--
+Aby strona wyświetlała się poprawnie, wykonaj następujące kroki:
+
+1. Zapisz załączony plik logo (Work Via logo) jako "logo.png"
+2. Skopiuj plik logo.png do folderu: assets/
+3. Gotowe!
+
+LUB użyj PowerShell:
+Copy-Item "ścieżka\do\twojego\logo.png" "assets\logo.png"
+
+Alternatywnie możesz użyć dowolnego innego logo - po prostu upewnij się, 
+że jest zapisane jako "assets/logo.png" i ma przezroczyste tło (PNG).
+
+Zalecane wymiary logo: 200-400px szerokości
+-->

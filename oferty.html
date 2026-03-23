@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oferty Pracy - Work Via</title>
+    <meta name="description" content="Przeglądaj wszystkie aktualne oferty pracy w Zachodniej Europie. Work Via - profesjonalna rekrutacja międzynarodowa.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            padding-top: 80px; /* Offset dla fixed navbar */
+        }
+        
+        .jobs-hero {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #0f1322 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .jobs-hero h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .jobs-hero .highlight {
+            color: var(--color-primary);
+        }
+        
+        .search-filters {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: -3rem auto 3rem;
+            max-width: 1200px;
+        }
+        
+        .search-bar {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-input {
+            padding: 1rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        
+        .search-btn {
+            padding: 1rem 2rem;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+        }
+        
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .filter-tag {
+            padding: 0.5rem 1rem;
+            background: #f3f4f6;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .filter-tag:hover {
+            background: #e5e7eb;
+        }
+        
+        .filter-tag.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+        
+        .jobs-container {
+            padding: 3rem 0;
+        }
+        
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+        
+        .view-btn {
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .view-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+        
+        .view-btn:hover {
+            border-color: var(--color-primary);
+        }
+        
+        /* List View */
+        .jobs-grid.list-view {
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .jobs-grid.list-view .job-card-full {
+            display: flex;
+            flex-direction: row;
+            min-height: auto;
+        }
+        
+        .jobs-grid.list-view .job-image {
+            width: 250px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        
+        .job-card-full {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .job-card-full:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .job-card-full .job-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .job-card-full .job-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .job-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-flag {
+            font-size: 2rem;
+        }
+        
+        .job-company {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-location {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .job-salary {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 1rem 0;
+        }
+        
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+        
+        .job-tag {
+            padding: 0.25rem 0.75rem;
+            background: #f3f4f6;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7280;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+        
+        /* Modal Styles */
+        .job-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 2rem auto;
+            padding: 0;
+            max-width: 900px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s;
+            position: relative;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            position: relative;
+            min-height: 250px;
+            max-height: 400px;
+            background: linear-gradient(135deg, var(--color-secondary) 0%, #0f1322 100%);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.4;
+            max-height: 400px;
+        }
+        
+        .modal-header-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            color: white;
+        }
+        
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .modal-company {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-location {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: var(--border-radius);
+        }
+        
+        .modal-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-info-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .modal-info-value {
+            font-size: 1.1rem;
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+        
+        .modal-description {
+            line-height: 1.8;
+            color: #374151;
+            margin-bottom: 2rem;
+            white-space: pre-wrap;
+        }
+        
+        .modal-description h3 {
+            color: var(--color-secondary);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-tag {
+            padding: 0.5rem 1rem;
+            background: #f3f4f6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            background: #c29d2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .modal-btn-secondary {
+            background: white;
+            color: var(--color-secondary);
+            border: 2px solid var(--color-secondary);
+        }
+        
+        .modal-btn-secondary:hover {
+            background: var(--color-secondary);
+            color: white;
+        }
+        
+        .job-card-full {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .job-card-full:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .jobs-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .search-bar {
+                grid-template-columns: 1fr;
+            }
+            
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .jobs-grid.list-view .job-card-full {
+                flex-direction: column;
+            }
+            
+            .jobs-grid.list-view .job-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+            
+            .modal-header {
+                min-height: 180px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            .modal-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.svg" alt="Work Via Logo" class="logo-img">
+                </a>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html#oferty" class="nav-link">Oferty pracy</a></li>
+                <li><a href="index.html#o-nas" class="nav-link">O nas</a></li>
+                <li><a href="index.html#rekruter" class="nav-link">Zostań rekruterem</a></li>
+                <li><a href="index.html#mapa" class="nav-link">Mapa ofert</a></li>
+                <li><a href="index.html#blog" class="nav-link">Blog</a></li>
+                <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
+                <li class="social-nav">
+                    <a href="#" class="social-icon" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                    <a href="#" class="social-icon" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="jobs-hero">
+        <div class="container">
+            <h1>Znajdź swoją <span class="highlight">wymarzoną pracę</span></h1>
+            <p id="heroJobCount">⏳ Ładowanie ofert...</p>
+        </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <div class="container">
+        <div class="search-filters">
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Szukaj oferty (np. kierowca, magazynier, operator)..."
+                >
+                <button class="search-btn" onclick="filterJobs()">
+                    🔍 Szukaj
+                </button>
+            </div>
+            
+            <div class="filter-tags">
+                <span class="filter-tag active" data-country="all" onclick="filterByCountry('all')">🌍 Wszystkie kraje</span>
+                <span class="filter-tag" data-country="Niemcy" onclick="filterByCountry('Niemcy')">🇩🇪 Niemcy</span>
+                <span class="filter-tag" data-country="Holandia" onclick="filterByCountry('Holandia')">🇳🇱 Holandia</span>
+                <span class="filter-tag" data-country="Belgia" onclick="filterByCountry('Belgia')">🇧🇪 Belgia</span>
+                <span class="filter-tag" data-country="Francja" onclick="filterByCountry('Francja')">🇫🇷 Francja</span>
+                <span class="filter-tag" data-country="Szwajcaria" onclick="filterByCountry('Szwajcaria')">🇨🇭 Szwajcaria</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Grid -->
+    <section class="jobs-container">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div id="jobsCount" style="color: #6b7280; font-weight: 500;"></div>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="toggleView('grid')" title="Widok kafelków">
+                        ⊞
+                    </button>
+                    <button class="view-btn" onclick="toggleView('list')" title="Widok listy">
+                        ☰
+                    </button>
+                </div>
+            </div>
+            <div id="loadingState" class="loading">
+                ⏳ Ładowanie ofert...
+            </div>
+            <div id="jobsGrid" class="jobs-grid" style="display: none;"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <h3>😕 Nie znaleziono ofert</h3>
+                <p>Spróbuj zmienić kryteria wyszukiwania</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Detail Modal -->
+    <div id="jobModal" class="job-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeJobModal()">&times;</button>
+            <div class="modal-header" id="modalHeader">
+                <img id="modalImage" src="" alt="" style="display: none;">
+                <div class="modal-header-content">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-company" id="modalCompany"></p>
+                    <p class="modal-location" id="modalLocation"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info-grid">
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Wynagrodzenie</span>
+                        <span class="modal-info-value" id="modalSalary"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Typ umowy</span>
+                        <span class="modal-info-value" id="modalType"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <span class="modal-info-label">Doświadczenie</span>
+                        <span class="modal-info-value" id="modalExperience"></span>
+                    </div>
+                </div>
+                
+                <div class="modal-tags" id="modalTags"></div>
+                
+                <div class="modal-description" id="modalDescription"></div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" onclick="applyToJob()">📩 Aplikuj teraz</button>
+                    <button class="modal-btn modal-btn-secondary" onclick="closeJobModal()">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Work Via</h3>
+                    <p>Profesjonalna rekrutacja do pracy w Zachodniej Europie</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <p>Email: workvia.recruitment@gmail.com</p>
+                    <p>Tel: +48 453 310 569</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Informacje prawne</h4>
+                    <ul>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
+                        <li><a href="polityka-cookies.html">Polityka cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Work Via. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cookies.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+            }
+        });
+        
+        let allJobs = [];
+        let filteredJobs = [];
+        let currentCountryFilter = 'all';
+        
+        // Load jobs on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Add scrolled class to navbar on this page since we have content at top
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.add('scrolled');
+            
+            await loadAllJobs();
+        });
+        
+        async function loadAllJobs() {
+            const loadingState = document.getElementById('loadingState');
+            const jobsGrid = document.getElementById('jobsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            try {
+                const apiUrl = 'https://workvia-crm2026.onrender.com/api/jobs/public/active';
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const apiJobs = await response.json();
+                
+                console.log('🔍 API Response:', {
+                    totalJobs: apiJobs.length,
+                    sample: apiJobs[0],
+                    allTitles: apiJobs.map(j => j.title)
+                });
+                
+                // Map CRM data to display format
+                allJobs = apiJobs.map(job => ({
+                    id: job.id,
+                    title: job.title,
+                    company: job.company_name || job.client_name || 'Work Via',
+                    country: job.country || job.location || 'Europa',
+                    city: job.city || job.location || 'Różne lokalizacje',
+                    salary: formatSalary(job.salary_min, job.salary_max, job.salary_currency, job.hourly_rate),
+                    type: formatEmploymentType(job.employment_type),
+                    experience: formatExperience(job.experience_level),
+                    description: job.description || '',
+                    image: job.image_url || null,
+                    tags: [
+                        job.employment_type ? formatEmploymentType(job.employment_type) : null,
+                        job.remote_option ? 'Praca zdalna' : null,
+                        job.accommodation ? 'Zakwaterowanie' : null,
+                        job.language ? `Język: ${job.language}` : null
+                    ].filter(Boolean).slice(0, 3)
+                }));
+                
+                filteredJobs = [...allJobs];
+                
+                loadingState.style.display = 'none';
+                
+                // Update hero count with actual number
+                const heroCount = document.getElementById('heroJobCount');
+                if (allJobs.length === 0) {
+                    heroCount.textContent = 'Obecnie brak aktywnych ofert pracy';
+                    noResults.style.display = 'block';
+                    document.getElementById('jobsCount').textContent = 'Brak aktywnych ofert';
+                } else {
+                    heroCount.textContent = `${allJobs.length} ${allJobs.length === 1 ? 'aktywna oferta pracy' : allJobs.length < 5 ? 'aktywne oferty pracy' : 'aktywnych ofert pracy'} w Zachodniej Europie`;
+                    jobsGrid.style.display = 'grid';
+                    renderJobs();
+                }
+                
+            } catch (error) {
+                console.error('Błąd ładowania ofert:', error);
+                loadingState.innerHTML = '❌ Nie udało się załadować ofert. Spróbuj odświeżyć stronę.';
+                document.getElementById('heroJobCount').textContent = 'Nie można załadować ofert. Spróbuj ponownie później.';
+            }
+        }
+        
+        function renderJobs() {
+            const jobsGrid = document.getElementById('jobsGrid');
+            const jobsCount = document.getElementById('jobsCount');
+            const noResults = document.getElementById('noResults');
+            
+            jobsCount.textContent = `Znaleziono ${filteredJobs.length} ${filteredJobs.length === 1 ? 'ofertę' : 'ofert'}`;
+            
+            if (filteredJobs.length === 0) {
+                jobsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            jobsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            jobsGrid.innerHTML = filteredJobs.map((job, index) => `
+                <div class="job-card-full" onclick="openJobModal(${index})">
+                    ${job.image ? `<img src="${job.image}" alt="${job.title}" class="job-image" onerror="this.style.display='none'">` : ''}
+                    <div class="job-content">
+                        <div class="job-header">
+                            <div>
+                                <h3 class="job-title">${job.title}</h3>
+                                <p class="job-company">${job.company}</p>
+                                <p class="job-location">📍 ${job.city}, ${job.country}</p>
+                            </div>
+                            <div class="job-flag">${getCountryFlag(job.country)}</div>
+                        </div>
+                        <p class="job-salary">${job.salary}</p>
+                        <p class="job-type">${job.type} · ${job.experience}</p>
+                        <div class="job-tags">
+                            ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function filterByCountry(country) {
+            currentCountryFilter = country;
+            
+            // Update active filter tag
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.classList.remove('active');
+                if (tag.dataset.country === country) {
+                    tag.classList.add('active');
+                }
+            });
+            
+            filterJobs();
+        }
+        
+        function filterJobs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredJobs = allJobs.filter(job => {
+                const matchesSearch = !searchTerm || 
+                    job.title.toLowerCase().includes(searchTerm) ||
+                    job.company.toLowerCase().includes(searchTerm) ||
+                    job.city.toLowerCase().includes(searchTerm) ||
+                    job.description.toLowerCase().includes(searchTerm);
+                
+                const matchesCountry = currentCountryFilter === 'all' || 
+                    job.country === currentCountryFilter;
+                
+                return matchesSearch && matchesCountry;
+            });
+            
+            renderJobs();
+        }
+        
+        // Helper functions from main.js
+        function getCountryFlag(country) {
+            const flags = {
+                'Niemcy': '🇩🇪', 'Germany': '🇩🇪',
+                'Holandia': '🇳🇱', 'Netherlands': '🇳🇱',
+                'Belgia': '🇧🇪', 'Belgium': '🇧🇪',
+                'Francja': '🇫🇷', 'France': '🇫🇷',
+                'Szwajcaria': '🇨🇭', 'Switzerland': '🇨🇭',
+                'Austria': '🇦🇹', 'Österreich': '🇦🇹',
+                'Luksemburg': '🇱🇺', 'Luxembourg': '🇱🇺', 'Luxemburg': '🇱🇺',
+                'Włochy': '🇮🇹', 'Italy': '🇮🇹', 'Italia': '🇮🇹',
+                'Hiszpania': '🇪🇸', 'Spain': '🇪🇸', 'España': '🇪🇸',
+                'Portugalia': '🇵🇹', 'Portugal': '🇵🇹'
+            };
+            return flags[country] || '🇪🇺';
+        }
+        
+        function formatSalary(min, max, currency, hourlyRate) {
+            if (hourlyRate) return `${hourlyRate} ${currency || 'EUR'}/godz`;
+            if (min && max) return `${min} - ${max} ${currency || 'EUR'}`;
+            if (min) return `od ${min} ${currency || 'EUR'}`;
+            return 'Do uzgodnienia';
+        }
+        
+        function formatEmploymentType(type) {
+            const types = {
+                'full-time': 'Pełny etat',
+                'part-time': 'Pół etatu',
+                'contract': 'Kontrakt',
+                'temporary': 'Tymczasowa',
+                'internship': 'Staż'
+            };
+            return types[type] || type;
+        }
+        
+        function formatExperience(level) {
+            const levels = {
+                'junior': 'Początkujący',
+                'mid': 'Średniozaawansowany',
+                'senior': 'Zaawansowany',
+                'lead': 'Ekspert',
+                'expert': 'Ekspert'
+            };
+            return levels[level] || 'Dowolny';
+        }
+        
+        // Modal functions
+        let currentJobIndex = null;
+        let currentView = 'grid';
+        
+        function toggleView(view) {
+            currentView = view;
+            const jobsGrid = document.getElementById('jobsGrid');
+            const viewBtns = document.querySelectorAll('.view-btn');
+            
+            // Update buttons
+            viewBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Toggle grid class
+            if (view === 'list') {
+                jobsGrid.classList.add('list-view');
+            } else {
+                jobsGrid.classList.remove('list-view');
+            }
+        }
+        
+        function openJobModal(index) {
+            currentJobIndex = index;
+            const job = filteredJobs[index];
+            
+            // Populate modal
+            document.getElementById('modalTitle').textContent = job.title;
+            document.getElementById('modalCompany').textContent = job.company;
+            document.getElementById('modalLocation').textContent = `📍 ${job.city}, ${job.country} ${getCountryFlag(job.country)}`;
+            document.getElementById('modalSalary').textContent = job.salary;
+            document.getElementById('modalType').textContent = job.type;
+            document.getElementById('modalExperience').textContent = job.experience;
+            
+            // Image
+            const modalImage = document.getElementById('modalImage');
+            if (job.image) {
+                modalImage.src = job.image;
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
+            
+            // Tags
+            const tagsHtml = job.tags.map(tag => `<span class="modal-tag">${tag}</span>`).join('');
+            document.getElementById('modalTags').innerHTML = tagsHtml;
+            
+            // Description
+            const description = job.description || 'Brak szczegółowego opisu. Skontaktuj się z nami, aby dowiedzieć się więcej!';
+            document.getElementById('modalDescription').innerHTML = formatDescription(description);
+            
+            // Show modal
+            document.getElementById('jobModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeJobModal() {
+            document.getElementById('jobModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentJobIndex = null;
+        }
+        
+        function applyToJob() {
+            if (currentJobIndex !== null) {
+                const job = filteredJobs[currentJobIndex];
+                // Redirect to contact form with job title
+                window.location.href = `index.html#kontakt?job=${encodeURIComponent(job.title)}`;
+            }
+        }
+        
+        function formatDescription(desc) {
+            // Convert line breaks to HTML and preserve formatting
+            return desc
+                .split('\n\n')
+                .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+        }
+        
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeJobModal();
+            }
+        });
+        
+        // Close modal on outside click
+        document.getElementById('jobModal').addEventListener('click', (e) => {
+            if (e.target.id === 'jobModal') {
+                closeJobModal();
+            }
+        });
+        
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                filterJobs();
+            }
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Mobile menu toggle (same as index.html)
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
