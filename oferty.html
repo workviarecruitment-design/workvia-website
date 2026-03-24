@@ -741,7 +741,6 @@
                 allJobs = apiJobs.map(job => ({
                     id: job.id,
                     title: job.title,
-                    company: job.company_name || job.client_name || 'Work Via',
                     country: job.country || job.location || 'Europa',
                     city: job.city || job.location || 'Różne lokalizacje',
                     salary: formatSalary(job.salary_min, job.salary_max, job.salary_currency, job.hourly_rate),

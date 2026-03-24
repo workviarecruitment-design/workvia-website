@@ -161,7 +161,6 @@ async function loadJobs() {
         jobs = apiJobs.map(job => ({
             id: job.id,
             title: job.title,
-            company: job.company_name || job.client_name || 'Work Via',
             country: job.country || job.location || 'Europa',
             flag: getCountryFlag(job.country || job.location),
             location: job.city || job.location || 'Różne lokalizacje',
