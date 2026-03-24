@@ -181,6 +181,7 @@ async function loadJobs() {
         } else {
             console.log(`✅ Wyświetlam ${jobs.length} ofert`);
             renderJobCards();
+            updateCountryMap();  // Update country counts
             initSlider();
         }
     } catch (error) {
@@ -394,9 +395,58 @@ function renderJobCards() {
     createSliderDots();
 }
 
+// Update country map with real job counts
+function updateCountryMap() {
+    const countryMapping = {
+        'Niemcy': { name: 'Niemcy', count: 0 },
+        'Holandia': { name: 'Holandia', count: 0 },
+        'Belgia': { name: 'Belgia', count: 0 },
+        'Francja': { name: 'Francja', count: 0 },
+        'Wielka Brytania': { name: 'Wielka Brytania', count: 0 },
+        'Irlandia': { name: 'Irlandia', count: 0 },
+        'Austria': { name: 'Austria', count: 0 },
+        'Szwajcaria': { name: 'Szwajcaria', count: 0 }
+    };
+    
+    // Count jobs per country
+    jobs.forEach(job => {
+        const country = job.country;
+        if (countryMapping[country]) {
+            countryMapping[country].count++;
+        }
+    });
+    
+    // Update HTML
+    const countryCards = document.querySelectorAll('.country-card');
+    countryCards.forEach(card => {
+        const countryName = card.querySelector('h4').textContent;
+        const countElement = card.querySelector('.country-jobs');
+        const count = countryMapping[countryName]?.count || 0;
+        
+        if (count === 0) {
+            countElement.textContent = 'Brak ofert';
+        } else if (count === 1) {
+            countElement.textContent = '1 oferta';
+        } else if (count >= 2 && count <= 4) {
+            countElement.textContent = `${count} oferty`;
+        } else {
+            countElement.textContent = `${count} ofert`;
+        }
+    });
+}
+
 function createJobCard(job) {
     const card = document.createElement('div');
     card.classList.add('job-card');
+    card.style.cursor = 'pointer';
+    
+    // Make entire card clickable
+    card.addEventListener('click', (e) => {
+        // Don't navigate if clicked on bookmark button
+        if (!e.target.closest('.job-bookmark')) {
+            window.location.href = `oferty.html?job=${job.id}`;
+        }
+    });
     
     // Opcjonalne zdjęcie z oferty
     const imageHtml = job.image ? 
@@ -442,7 +492,7 @@ function createJobCard(job) {
             ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
         </div>
         <div class="job-salary">${job.salary}</div>
-        <a href="#kontakt" class="btn btn-primary" style="width: 100%; text-align: center;">Aplikuj teraz</a>
+        <button class="btn btn-primary" style="width: 100%; text-align: center;" onclick="event.stopPropagation(); window.location.href='oferty.html?job=${job.id}#kontakt'">Zobacz szczegóły</button>
     `;
     
     return card;

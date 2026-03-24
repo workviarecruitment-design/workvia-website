@@ -794,6 +794,9 @@
                     heroCount.textContent = `${allJobs.length} ${allJobs.length === 1 ? 'aktywna oferta pracy' : allJobs.length < 5 ? 'aktywne oferty pracy' : 'aktywnych ofert pracy'} w Zachodniej Europie`;
                     jobsGrid.style.display = 'grid';
                     renderJobs();
+                    
+                    // Check if we should open a specific job from URL parameter
+                    checkAndOpenJobFromUrl();
                 }
                 
             } catch (error) {
@@ -988,6 +991,24 @@
                     job_location: `${job.city}, ${job.country}`
                 });
                 window.location.href = `index.html?${params.toString()}#kontakt`;
+            }
+        }
+        
+        function checkAndOpenJobFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('job');
+            
+            if (jobId) {
+                // Find job by ID
+                const jobIndex = filteredJobs.findIndex(job => job.id == jobId);
+                if (jobIndex !== -1) {
+                    // Small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        openJobModal(jobIndex);
+                    }, 300);
+                } else {
+                    console.warn(`Job with ID ${jobId} not found`);
+                }
             }
         }
         
