@@ -628,7 +628,6 @@
                 <img id="modalImage" src="" alt="" style="display: none;">
                 <div class="modal-header-content">
                     <h2 class="modal-title" id="modalTitle"></h2>
-                    <p class="modal-company" id="modalCompany"></p>
                     <p class="modal-location" id="modalLocation"></p>
                 </div>
             </div>
@@ -804,7 +803,6 @@
                         <div class="job-header">
                             <div>
                                 <h3 class="job-title">${job.title}</h3>
-                                <p class="job-company">${job.company}</p>
                                 <p class="job-location">📍 ${job.city}, ${job.country}</p>
                             </div>
                             <div class="job-flag">${getCountryFlag(job.country)}</div>
@@ -839,7 +837,6 @@
             filteredJobs = allJobs.filter(job => {
                 const matchesSearch = !searchTerm || 
                     job.title.toLowerCase().includes(searchTerm) ||
-                    job.company.toLowerCase().includes(searchTerm) ||
                     job.city.toLowerCase().includes(searchTerm) ||
                     job.description.toLowerCase().includes(searchTerm);
                 
@@ -925,7 +922,6 @@
             
             // Populate modal
             document.getElementById('modalTitle').textContent = job.title;
-            document.getElementById('modalCompany').textContent = job.company;
             document.getElementById('modalLocation').textContent = `📍 ${job.city}, ${job.country} ${getCountryFlag(job.country)}`;
             document.getElementById('modalSalary').textContent = job.salary;
             document.getElementById('modalType').textContent = job.type;
@@ -962,8 +958,13 @@
         function applyToJob() {
             if (currentJobIndex !== null) {
                 const job = filteredJobs[currentJobIndex];
-                // Redirect to contact form with job title
-                window.location.href = `index.html#kontakt?job=${encodeURIComponent(job.title)}`;
+                // Redirect to contact form with job details
+                const params = new URLSearchParams({
+                    job_id: job.id,
+                    job_title: job.title,
+                    job_location: `${job.city}, ${job.country}`
+                });
+                window.location.href = `index.html?${params.toString()}#kontakt`;
             }
         }
         

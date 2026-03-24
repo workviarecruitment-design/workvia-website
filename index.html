@@ -529,6 +529,13 @@
                     </div>
                 </div>
                 <form class="contact-form" id="contactForm" data-aos="fade-left">
+                    <!-- Web3Forms API Key -->
+                    <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY_HERE">
+                    <!-- Job Application Context (auto-filled from URL) -->
+                    <input type="hidden" name="job_id" id="jobId" value="">
+                    <input type="hidden" name="job_title" id="jobTitle" value="">
+                    <input type="hidden" name="job_location" id="jobLocation" value="">
+                    
                     <div class="form-group">
                         <label for="name">Imię i nazwisko</label>
                         <input type="text" id="name" name="name" required autocomplete="name">
@@ -637,5 +644,6 @@
 
     <script src="js/main.js"></script>
     <script src="js/cookies.js"></script>
+    <script src="js/contact-form.js"></script>
 </body>
 </html>

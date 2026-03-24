@@ -416,7 +416,6 @@ function createJobCard(job) {
             </button>
         </div>
         <h3 class="job-title">${job.title}</h3>
-        <p class="job-company">${job.company}</p>
         <div class="job-details">
             <div class="job-detail">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
