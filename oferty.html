@@ -413,6 +413,30 @@
             white-space: pre-wrap;
         }
         
+        .modal-description p {
+            margin-bottom: 1.2rem;
+        }
+        
+        .modal-description p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .modal-description ul,
+        .modal-description ol {
+            margin: 1rem 0 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .modal-description li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .modal-description strong {
+            color: var(--color-secondary);
+            font-weight: 600;
+        }
+        
         .modal-description h3 {
             color: var(--color-secondary);
             margin-top: 1.5rem;
@@ -968,10 +992,19 @@
         }
         
         function formatDescription(desc) {
-            // Convert line breaks to HTML and preserve formatting
+            if (!desc) return '<p>Brak opisu</p>';
+            
+            // Convert line breaks to HTML paragraphs
+            // Split by double newline for paragraphs, single newline for <br>
             return desc
-                .split('\n\n')
-                .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                .trim()
+                .split(/\n\s*\n/)  // Split by empty lines (paragraphs)
+                .filter(para => para.trim())  // Remove empty paragraphs
+                .map(para => {
+                    // Replace single newlines with <br>
+                    const formatted = para.trim().replace(/\n/g, '<br>');
+                    return `<p>${formatted}</p>`;
+                })
                 .join('');
         }
         
