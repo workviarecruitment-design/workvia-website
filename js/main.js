@@ -493,7 +493,7 @@ function createJobCard(job) {
             ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
         </div>
         <div class="job-salary">${job.salary}</div>
-        <button class="btn btn-primary" style="width: 100%; text-align: center;" onclick="event.stopPropagation(); window.location.href='oferty.html?job=${job.id}#kontakt'">Zobacz szczegóły</button>
+        <button class="btn btn-primary" style="width: 100%; text-align: center;" onclick="event.stopPropagation(); window.location.href='oferty.html?job=${job.id}'">Zobacz szczegóły</button>
     `;
     
     return card;

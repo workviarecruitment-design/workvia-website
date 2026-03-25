@@ -1227,15 +1227,34 @@
             const jobId = urlParams.get('job');
             
             if (jobId) {
-                // Find job by ID
-                const jobIndex = filteredJobs.findIndex(job => job.id == jobId);
-                if (jobIndex !== -1) {
+                // Find job by ID in allJobs first
+                const job = allJobs.find(job => job.id == jobId);
+                
+                if (job) {
+                    // Reset filters to show all jobs
+                    currentCountryFilter = 'all';
+                    filteredJobs = [...allJobs];
+                    
+                    // Update UI to show "all" filter is selected
+                    document.querySelectorAll('.country-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.textContent.includes('Wszystkie')) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Re-render jobs to ensure all are visible
+                    renderJobs();
+                    
+                    // Find index in filteredJobs
+                    const jobIndex = filteredJobs.findIndex(j => j.id == jobId);
+                    
                     // Small delay to ensure DOM is ready
                     setTimeout(() => {
                         openJobModal(jobIndex);
                     }, 300);
                 } else {
-                    console.warn(`Job with ID ${jobId} not found`);
+                    console.warn(`Job with ID ${jobId} not found in loaded jobs`);
                 }
             }
         }
