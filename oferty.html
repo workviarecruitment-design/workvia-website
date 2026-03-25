@@ -683,6 +683,48 @@
         </div>
     </div>
 
+    <!-- Application Form Modal -->
+    <div id="applicationModal" class="job-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="closeApplicationModal()">&times;</button>
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--color-primary), #c4941f); min-height: auto; padding: 2rem;">
+                <div class="modal-header-content">
+                    <h2 class="modal-title" style="color: white; margin: 0;">📩 Aplikuj na stanowisko</h2>
+                    <p id="applicationJobInfo" style="color: rgba(255,255,255,0.9); margin-top: 0.5rem;"></p>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 2rem;">
+                <form id="applicationForm" class="contact-form" style="box-shadow: none; padding: 0;">
+                    <!-- Web3Forms API Key -->
+                    <input type="hidden" name="access_key" value="a321996b-20bc-4b29-9fdd-120105298906">
+                    <!-- Job Information -->
+                    <input type="hidden" name="job_id" id="appJobId" value="">
+                    <input type="hidden" name="job_title" id="appJobTitle" value="">
+                    <input type="hidden" name="job_location" id="appJobLocation" value="">
+                    
+                    <div class="form-group">
+                        <label for="appName">Imię i nazwisko *</label>
+                        <input type="text" id="appName" name="name" required autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="appEmail">Email *</label>
+                        <input type="email" id="appEmail" name="email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="appPhone">Telefon *</label>
+                        <input type="tel" id="appPhone" name="phone" required autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="appMessage">Wiadomość</label>
+                        <textarea id="appMessage" name="message" rows="4" placeholder="Dlaczego jesteś idealnym kandydatem?"></textarea>
+                    </div>
+                    <div id="applicationFormMessage"></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Wyślij aplikację</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -985,15 +1027,84 @@
         function applyToJob() {
             if (currentJobIndex !== null) {
                 const job = filteredJobs[currentJobIndex];
-                // Redirect to contact form with job details
-                const params = new URLSearchParams({
-                    job_id: job.job_number || job.id,  // Use real job number
-                    job_title: job.title,
-                    job_location: `${job.city}, ${job.country}`
-                });
-                window.location.href = `index.html?${params.toString()}#kontakt`;
+                
+                // Open application modal instead of redirecting
+                openApplicationModal(job);
             }
         }
+        
+        function openApplicationModal(job) {
+            // Fill job information
+            document.getElementById('appJobId').value = job.job_number || job.id;
+            document.getElementById('appJobTitle').value = job.title;
+            document.getElementById('appJobLocation').value = `${job.city}, ${job.country}`;
+            
+            // Update modal header
+            const jobInfo = document.getElementById('applicationJobInfo');
+            jobInfo.textContent = `${job.title} | ${job.city}, ${job.country} | ID: ${job.job_number || job.id}`;
+            
+            // Pre-fill message
+            const messageField = document.getElementById('appMessage');
+            messageField.value = `Dzień dobry,\n\nChciałbym/Chciałabym aplikować na stanowisko ${job.title}.\n\n`;
+            
+            // Show modal
+            document.getElementById('applicationModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeApplicationModal() {
+            document.getElementById('applicationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('applicationForm').reset();
+            
+            // Clear message container
+            const msgContainer = document.getElementById('applicationFormMessage');
+            if (msgContainer) msgContainer.innerHTML = '';
+        }
+        
+        // Handle application form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const appForm = document.getElementById('applicationForm');
+            if (appForm) {
+                appForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const submitBtn = appForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    const msgContainer = document.getElementById('applicationFormMessage');
+                    
+                    // Show loading
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '⏳ Wysyłanie...';
+                    
+                    try {
+                        const formData = new FormData(appForm);
+                        
+                        const response = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            msgContainer.innerHTML = '<div class="form-message form-message-success">✅ Aplikacja wysłana! Skontaktujemy się wkrótce.</div>';
+                            setTimeout(() => {
+                                closeApplicationModal();
+                            }, 2000);
+                        } else {
+                            throw new Error('Submission failed');
+                        }
+                    } catch (error) {
+                        console.error('Form error:', error);
+                        msgContainer.innerHTML = '<div class="form-message form-message-error">❌ Błąd wysyłania. Spróbuj ponownie lub zadzwoń: +48 453 310 569</div>';
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                });
+            }
+        });
         
         function checkAndOpenJobFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
