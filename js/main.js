@@ -160,6 +160,7 @@ async function loadJobs() {
         // Mapowanie danych z CRM na format strony
         jobs = apiJobs.map(job => ({
             id: job.id,
+            job_number: job.job_number || job.id,  // Real job number from CRM
             title: job.title,
             country: job.country || job.location || 'Europa',
             flag: getCountryFlag(job.country || job.location),
