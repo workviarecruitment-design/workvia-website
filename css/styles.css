@@ -52,6 +52,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -397,6 +398,13 @@ button {
     z-index: 2;
 }
 
+@media (max-width: 992px) {
+    .hero-text {
+        margin-right: 0;
+        max-width: 100%;
+    }
+}
+
 .hero-title {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -598,7 +606,7 @@ button {
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%);
     position: relative;
     overflow: hidden;
-}
+}\n\n@media (max-width: 768px) {\n    .founder-section {\n        padding: 3rem 0;\n    }\n}
 
 .founder-section::before {
     content: '';
@@ -670,6 +678,14 @@ button {
     margin-bottom: 0.5rem;
     line-height: 1.2;
     font-family: 'Playfair Display', serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .founder-name {
+        font-size: 2.25rem;
+    }
 }
 
 .founder-subtitle {
@@ -677,6 +693,8 @@ button {
     color: var(--color-gray-dark);
     margin-bottom: var(--spacing-md);
     font-weight: 500;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .founder-description {
@@ -2072,8 +2090,23 @@ button {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --spacing-md: 1.5rem;
+    }
+    
     .container {
-        padding: 0 var(--spacing-sm);
+        padding: 0 1.25rem;
+        overflow-x: hidden;
+    }
+    
+    .hero-text {
+        margin-right: 0;
+        max-width: 100%;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.75rem, 8vw, 2.5rem);
+        transform: translateX(0);
     }
     
     .hero-stats {
@@ -2082,6 +2115,25 @@ button {
     
     .stat-number {
         font-size: 2.5rem;
+    }
+    
+    .founder-name {
+        font-size: 2rem;
+        word-wrap: break-word;
+    }
+    
+    .founder-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    .founder-content {
+        padding: 1rem;
+    }
+    
+    .founder-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
     .countries-grid {
