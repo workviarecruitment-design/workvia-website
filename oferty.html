@@ -160,6 +160,10 @@
             min-height: auto;
         }
         
+        .jobs-grid.list-view .job-image {
+            display: none !important;
+        }
+        
         .jobs-grid.list-view .job-content {
             padding: 1rem 1.5rem;
         }
@@ -994,6 +998,9 @@
             } else {
                 jobsGrid.classList.remove('list-view');
             }
+            
+            // Re-render jobs to show/hide images based on view
+            renderJobs();
         }
         
         function openJobModal(index) {
