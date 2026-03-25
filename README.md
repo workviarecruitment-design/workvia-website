@@ -1,6 +1,6 @@
-# Work Via - Recruitment Website
+# WorkVIA - Recruitment Website
 
-Profesjonalna strona internetowa dla agencji rekrutacyjnej Work Via.
+Profesjonalna strona internetowa dla agencji rekrutacyjnej WorkVIA.
 
 ## 📁 Struktura projektu
 
@@ -72,7 +72,7 @@ Zaktualizuj linki do social media w nawigacji i footerze.
 
 ## 🎨 Kolory
 
-Strona używa palety kolorów Work Via:
+Strona używa palety kolorów WorkVIA:
 - **Złoty**: `#D4AF37` (primary)
 - **Ciemny granat**: `#1a1f3a` (secondary)
 
@@ -168,7 +168,7 @@ const response = await fetch('https://twoj-backend.pl/api/contact', {
 
 ## 📞 Wsparcie
 
-Stworzone dla **Work Via Recruitment** - Marzec 2026
+Stworzone dla **WorkVIA Recruitment** - Marzec 2026
 
 Masz pytania? Skontaktuj się z developerem lub edytuj pliki według potrzeb!
 

@@ -2,7 +2,7 @@
 <!--
 Aby strona wyświetlała się poprawnie, wykonaj następujące kroki:
 
-1. Zapisz załączony plik logo (Work Via logo) jako "logo.png"
+1. Zapisz załączony plik logo (WorkVIA logo) jako "logo.png"
 2. Skopiuj plik logo.png do folderu: assets/
 3. Gotowe!
 
