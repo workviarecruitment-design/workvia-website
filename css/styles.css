@@ -27,7 +27,7 @@
     --spacing-xl: 6rem;
     
     /* Layout */
-    --max-width: 1400px;
+    --max-width: 1280px;
     --border-radius: 12px;
     --border-radius-sm: 8px;
     
@@ -2183,11 +2183,29 @@ button {
 }
 
 /* ===================================
+   Small Laptop Screens (1366px - typical 15" laptop)
+   =================================== */
+@media (min-width: 1366px) {
+    :root {
+        --max-width: 1260px;
+    }
+}
+
+/* ===================================
+   Laptop Screens (1400px+)
+   =================================== */
+@media (min-width: 1400px) {
+    :root {
+        --max-width: 1320px;
+    }
+}
+
+/* ===================================
    Large Screens Optimization (16:9 and wider)
    =================================== */
 @media (min-width: 1600px) {
     :root {
-        --max-width: 1600px;
+        --max-width: 1520px;
     }
     
     .hero-title {
@@ -2210,7 +2228,7 @@ button {
 
 @media (min-width: 1920px) {
     :root {
-        --max-width: 1800px;
+        --max-width: 1720px;
     }
     
     .hero-title {
