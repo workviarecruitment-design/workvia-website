@@ -151,6 +151,7 @@
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            gap: 1rem;
         }
         
         .jobs-grid.list-view .job-card-full {
@@ -159,10 +160,20 @@
             min-height: auto;
         }
         
-        .jobs-grid.list-view .job-image {
-            width: 250px;
-            height: auto;
-            flex-shrink: 0;
+        .jobs-grid.list-view .job-content {
+            padding: 1rem 1.5rem;
+        }
+        
+        .jobs-grid.list-view .job-header {
+            margin-bottom: 0.5rem;
+        }
+        
+        .jobs-grid.list-view .job-salary {
+            margin: 0.5rem 0;
+        }
+        
+        .jobs-grid.list-view .job-tags {
+            padding-top: 0.5rem;
         }
         
         .job-card-full {
@@ -867,7 +878,7 @@
             
             jobsGrid.innerHTML = filteredJobs.map((job, index) => `
                 <div class="job-card-full" onclick="openJobModal(${index})">
-                    ${job.image ? `<img src="${job.image}" alt="${job.title}" class="job-image" onerror="this.style.display='none'">` : ''}
+                    ${currentView === 'grid' && job.image ? `<img src="${job.image}" alt="${job.title}" class="job-image" onerror="this.style.display='none'">` : ''}
                     <div class="job-content">
                         <div class="job-header">
                             <div>
