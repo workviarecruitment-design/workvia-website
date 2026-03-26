@@ -2,7 +2,8 @@
 // Global State
 // ===================================
 let currentSlide = 0;
-let jobs = [];
+let jobs = []; // Wszystkie oferty z CRM
+let displayedJobs = []; // 5 losowych ofert wyświetlanych na stronie głównej
 let isAutoPlaying = true;
 let autoPlayInterval;
 
@@ -319,16 +320,31 @@ function getTags(job) {
 // 1. Sprawdź czy w CRM są oferty z zaznaczonym "Publikuj na stronie WWW"
 // 2. Sprawdź czy API jest dostępne: https://workvia-crm2026.onrender.com/api/jobs/public/active
 
+// Funkcja do losowania N ofert z listy
+function getRandomJobs(jobsArray, count) {
+    if (jobsArray.length <= count) {
+        return [...jobsArray]; // Jeśli mamy 5 lub mniej ofert, zwróć wszystkie
+    }
+    
+    const shuffled = [...jobsArray].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
 function renderJobCards() {
     const sliderTrack = document.getElementById('sliderTrack');
     sliderTrack.innerHTML = '';
     
-    jobs.forEach(job => {
+    // Na stronie głównej pokazujemy tylko 5 losowych ofert
+    displayedJobs = getRandomJobs(jobs, 5);
+    
+    console.log(`🎲 Wylosowano ${displayedJobs.length} z ${jobs.length} ofert do wyświetlenia`);
+    
+    displayedJobs.forEach(job => {
         const card = createJobCard(job);
         sliderTrack.appendChild(card);
     });
     
-    createSliderDots();
+    createSliderDots(displayedJobs.length);
 }
 
 // Update country map with real job counts
@@ -434,15 +450,17 @@ function createJobCard(job) {
     return card;
 }
 
-function createSliderDots() {
+function createSliderDots(displayedJobsCount) {
     const dotsContainer = document.getElementById('sliderDots');
     if (!dotsContainer) return;
     
     dotsContainer.innerHTML = '';
     
-    if (!jobs || jobs.length === 0) return;
+    // Użyj liczby wyświetlanych ofert (5 losowych) zamiast wszystkich
+    const jobCount = displayedJobsCount || jobs.length;
+    if (!jobCount || jobCount === 0) return;
     
-    const slidesCount = Math.ceil(jobs.length / getSlidesPerView());
+    const slidesCount = Math.ceil(jobCount / getSlidesPerView());
     
     for (let i = 0; i < slidesCount; i++) {
         const dot = document.createElement('button');
@@ -504,16 +522,16 @@ function initSlider() {
     // Responsive recalculation
     window.addEventListener('resize', () => {
         goToSlide(currentSlide);
-        createSliderDots();
+        createSliderDots(displayedJobs.length);
     });
 }
 
 function goToSlide(index) {
-    if (!jobs || jobs.length === 0) return;
+    if (!displayedJobs || displayedJobs.length === 0) return;
     
     const sliderTrack = document.getElementById('sliderTrack');
     const slidesPerView = getSlidesPerView();
-    const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
+    const maxSlide = Math.ceil(displayedJobs.length / slidesPerView) - 1;
     
     currentSlide = Math.max(0, Math.min(index, maxSlide));
     
@@ -524,10 +542,10 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
-    if (!jobs || jobs.length === 0) return;
+    if (!displayedJobs || displayedJobs.length === 0) return;
     
     const slidesPerView = getSlidesPerView();
-    const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
+    const maxSlide = Math.ceil(displayedJobs.length / slidesPerView) - 1;
     
     if (currentSlide >= maxSlide) {
         currentSlide = 0;
@@ -539,10 +557,10 @@ function nextSlide() {
 }
 
 function previousSlide() {
-    if (!jobs || jobs.length === 0) return;
+    if (!displayedJobs || displayedJobs.length === 0) return;
     
     const slidesPerView = getSlidesPerView();
-    const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
+    const maxSlide = Math.ceil(displayedJobs.length / slidesPerView) - 1;
     
     if (currentSlide <= 0) {
         currentSlide = maxSlide;
