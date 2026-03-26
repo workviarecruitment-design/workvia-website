@@ -462,12 +462,33 @@ function createSliderDots(displayedJobsCount) {
     
     dotsContainer.innerHTML = '';
     
-    // Użyj liczby wyświetlanych ofert (5 losowych) zamiast wszystkich
+    // Użyj liczby wyświetlanych ofert zamiast wszystkich
     const jobCount = displayedJobsCount || jobs.length;
     if (!jobCount || jobCount === 0) return;
     
-    const slidesCount = Math.ceil(jobCount / getSlidesPerView());
+    const slidesPerView = getSlidesPerView();
+    // Twórz tylko pełne slajdy (floor zamiast ceil)
+    const slidesCount = Math.floor(jobCount / slidesPerView);
     
+    // Jeśli są jakieś pozostałe oferty, dodaj jeszcze jeden slajd
+    if (jobCount % slidesPerView > 0) {
+        // Ale tylko jeśli jest wystarczająco dużo ofert (min. 50% slajdu)
+        const remainingJobs = jobCount % slidesPerView;
+        const minJobsForSlide = Math.ceil(slidesPerView / 2);
+        if (remainingJobs >= minJobsForSlide) {
+            // Wystarczająco dużo ofert - pokaż ostatni slajd
+            for (let i = 0; i < slidesCount + 1; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('slider-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            return;
+        }
+    }
+    
+    // Standardowe pełne slajdy
     for (let i = 0; i < slidesCount; i++) {
         const dot = document.createElement('button');
         dot.classList.add('slider-dot');
