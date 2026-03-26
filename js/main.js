@@ -368,11 +368,17 @@ function updateCountryMap() {
         }
     });
     
-    // Update HTML
+    // Update HTML (only if .country-jobs elements exist)
     const countryCards = document.querySelectorAll('.country-card');
     countryCards.forEach(card => {
-        const countryName = card.querySelector('h4').textContent;
         const countElement = card.querySelector('.country-jobs');
+        
+        // Skip if country-jobs element doesn't exist (was removed from design)
+        if (!countElement) return;
+        
+        const countryName = card.querySelector('h4')?.textContent;
+        if (!countryName) return;
+        
         const count = countryMapping[countryName]?.count || 0;
         
         if (count === 0) {
