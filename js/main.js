@@ -178,7 +178,16 @@ async function loadJobs() {
         
         if (jobs.length === 0) {
             console.warn('⚠️ Brak opublikowanych ofert w CRM (sprawdź czy zaznaczono "Publikuj na stronie WWW")');
-            useMockJobs();
+            // Pokaż komunikat zamiast używać mock data
+            document.querySelector('.jobs-section').innerHTML = `
+                <div class="container" style="text-align: center; padding: 4rem 0;">
+                    <h2 class="section-title">Brak aktywnych ofert</h2>
+                    <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">
+                        Aktualnie nie ma opublikowanych ofert pracy.<br>
+                        Sprawdź później lub skontaktuj się z nami bezpośrednio.
+                    </p>
+                </div>
+            `;
         } else {
             console.log(`✅ Wyświetlam ${jobs.length} ofert`);
             renderJobCards();
@@ -187,8 +196,19 @@ async function loadJobs() {
         }
     } catch (error) {
         console.error('❌ Błąd ładowania ofert z CRM:', error);
-        // Fallback: użyj przykładowych danych jeśli API nie działa
-        useMockJobs();
+        // Pokaż komunikat błędu zamiast używać mock data
+        document.querySelector('.jobs-section').innerHTML = `
+            <div class="container" style="text-align: center; padding: 4rem 0;">
+                <h2 class="section-title">Błąd ładowania ofert</h2>
+                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">
+                    Nie udało się załadować ofert pracy z serwera.<br>
+                    Spróbuj odświeżyć stronę lub wróć później.
+                </p>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 0.5rem;">
+                    Szczegóły błędu: ${error.message}
+                </p>
+            </div>
+        `;
     }
 }
 
@@ -280,109 +300,10 @@ function getTags(job) {
     return tags.slice(0, 3);
 }
 
-function useMockJobs() {
-    jobs = [
-        {
-            id: 1,
-            title: "Operator wózka widłowego",
-            company: "Logistics Pro GmbH",
-            country: "Niemcy",
-            flag: "🇩🇪",
-            location: "Hamburg",
-            salary: "3500 - 4200 EUR",
-            type: "Pełny etat",
-            experience: "1-2 lata",
-            tags: ["Wózek widłowy", "Logistyka", "3 zmiany"]
-        },
-        {
-            id: 2,
-            title: "Pracownik produkcji",
-            company: "Dutch Manufacturing B.V.",
-            country: "Holandia",
-            flag: "🇳🇱",
-            location: "Rotterdam",
-            salary: "2800 - 3400 EUR",
-            type: "Pełny etat",
-            experience: "Bez doświadczenia",
-            tags: ["Produkcja", "Pakowanie", "Zmianowy"]
-        },
-        {
-            id: 3,
-            title: "Kierowca kat. CE",
-            company: "Transport Solutions SA",
-            country: "Belgia",
-            flag: "🇧🇪",
-            location: "Antwerpia",
-            salary: "4000 - 5500 EUR",
-            type: "Pełny etat",
-            experience: "2+ lata",
-            tags: ["Transport", "Kat. CE", "Długie trasy"]
-        },
-        {
-            id: 4,
-            title: "Monter konstrukcji stalowych",
-            company: "Steel Build GmbH",
-            country: "Niemcy",
-            flag: "🇩🇪",
-            location: "Frankfurt",
-            salary: "3800 - 4800 EUR",
-            type: "Pełny etat",
-            experience: "2+ lata",
-            tags: ["Konstrukcje", "Spawanie", "Budowa"]
-        },
-        {
-            id: 5,
-            title: "Pracownik magazynu",
-            company: "Warehouse Solutions",
-            country: "Holandia",
-            flag: "🇳🇱",
-            location: "Amsterdam",
-            salary: "2600 - 3200 EUR",
-            type: "Pełny etat",
-            experience: "Bez doświadczenia",
-            tags: ["Magazyn", "Picking", "Order picker"]
-        },
-        {
-            id: 6,
-            title: "Elektryk przemysłowy",
-            company: "Industrial Electric Ltd",
-            country: "Wielka Brytania",
-            flag: "🇬🇧",
-            location: "Manchester",
-            salary: "3200 - 4500 GBP",
-            type: "Pełny etat",
-            experience: "3+ lata",
-            tags: ["Elektryk", "Automatyka", "Przemysł"]
-        },
-        {
-            id: 7,
-            title: "Operator CNC",
-            company: "Precision Parts SARL",
-            country: "Francja",
-            flag: "🇫🇷",
-            location: "Lyon",
-            salary: "3000 - 3800 EUR",
-            type: "Pełny etat",
-            experience: "1-2 lata",
-            tags: ["CNC", "Frezowanie", "Produkcja"]
-        },
-        {
-            id: 8,
-            title: "Pracownik budowlany",
-            company: "Construction Pro AG",
-            country: "Szwajcaria",
-            flag: "🇨🇭",
-            location: "Zurych",
-            salary: "5000 - 6500 CHF",
-            type: "Pełny etat",
-            experience: "1+ rok",
-            tags: ["Budowa", "Wykończenia", "Remonty"]
-        }
-    ];
-    
-    renderJobCards();
-    initSlider();
-}
+// USUNIĘTO: Mock data - używamy tylko prawdziwych ofert z CRM
+// Jeśli widzisz błąd/brak ofert:
+// 1. Sprawdź czy w CRM są oferty z zaznaczonym "Publikuj na stronie WWW"
+// 2. Sprawdź czy API jest dostępne: https://workvia-crm2026.onrender.com/api/jobs/public/active
 
 function renderJobCards() {
     const sliderTrack = document.getElementById('sliderTrack');
