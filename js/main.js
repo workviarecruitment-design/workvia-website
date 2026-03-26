@@ -3,7 +3,7 @@
 // ===================================
 let currentSlide = 0;
 let jobs = []; // Wszystkie oferty z CRM
-let displayedJobs = []; // 5 losowych ofert wyświetlanych na stronie głównej
+let displayedJobs = []; // 8 losowych ofert wyświetlanych na stronie głównej
 let isAutoPlaying = true;
 let autoPlayInterval;
 
@@ -323,7 +323,7 @@ function getTags(job) {
 // Funkcja do losowania N ofert z listy
 function getRandomJobs(jobsArray, count) {
     if (jobsArray.length <= count) {
-        return [...jobsArray]; // Jeśli mamy 5 lub mniej ofert, zwróć wszystkie
+        return [...jobsArray]; // Jeśli mamy 8 lub mniej ofert, zwróć wszystkie
     }
     
     const shuffled = [...jobsArray].sort(() => 0.5 - Math.random());
@@ -334,8 +334,8 @@ function renderJobCards() {
     const sliderTrack = document.getElementById('sliderTrack');
     sliderTrack.innerHTML = '';
     
-    // Na stronie głównej pokazujemy tylko 5 losowych ofert
-    displayedJobs = getRandomJobs(jobs, 5);
+    // Na stronie głównej pokazujemy tylko 8 losowych ofert
+    displayedJobs = getRandomJobs(jobs, 8);
     
     console.log(`🎲 Wylosowano ${displayedJobs.length} z ${jobs.length} ofert do wyświetlenia`);
     
