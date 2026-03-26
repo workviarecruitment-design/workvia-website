@@ -2038,8 +2038,17 @@ button {
         --spacing-xl: 4rem;
     }
     
+    .logo-img {
+        height: 55px;
+    }
+    
     .hero {
         min-height: 80vh;
+    }
+    
+    .hero-content {
+        padding-top: 100px;
+        padding-bottom: 3rem;
     }
     
     .hero-buttons {
@@ -2099,6 +2108,19 @@ button {
         overflow-x: hidden;
     }
     
+    .logo-img {
+        height: 50px;
+    }
+    
+    .navbar {
+        padding: 1rem 0;
+    }
+    
+    .hero-content {
+        padding-top: 110px;
+        padding-bottom: 2rem;
+    }
+    
     .hero-text {
         margin-right: 0;
         max-width: 100%;
@@ -2107,6 +2129,8 @@ button {
     .hero-title {
         font-size: clamp(1.75rem, 8vw, 2.5rem);
         transform: translateX(0);
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
     
     .hero-stats {
