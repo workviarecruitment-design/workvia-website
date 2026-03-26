@@ -178,29 +178,41 @@ async function loadJobs() {
         
         if (jobs.length === 0) {
             console.warn('⚠️ Brak opublikowanych ofert w CRM (sprawdź czy zaznaczono "Publikuj na stronie WWW")');
-            // Pokaż komunikat zamiast używać mock data
-            document.querySelector('.jobs-section').innerHTML = `
-                <div class="container" style="text-align: center; padding: 4rem 0;">
-                    <h2 class="section-title">Brak aktywnych ofert</h2>
-                    <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">
+            // Show message in slider area
+            const sliderContainer = document.querySelector('.slider-container');
+            const dotsContainer = document.getElementById('sliderDots');
+            
+            document.getElementById('sliderTrack').innerHTML = `
+                <div style="text-align: center; padding: 3rem 2rem; width: 100%;">
+                    <p style="font-size: 1.2rem; color: #666;">
                         Aktualnie nie ma opublikowanych ofert pracy.<br>
                         Sprawdź później lub skontaktuj się z nami bezpośrednio.
                     </p>
                 </div>
             `;
+            sliderContainer.style.display = 'none'; // Hide slider buttons
+            if (dotsContainer) dotsContainer.style.display = 'none'; // Hide dots
         } else {
             console.log(`✅ Wyświetlam ${jobs.length} ofert`);
+            // Ensure slider UI is visible
+            const sliderContainer = document.querySelector('.slider-container');
+            const dotsContainer = document.getElementById('sliderDots');
+            if (sliderContainer) sliderContainer.style.display = '';
+            if (dotsContainer) dotsContainer.style.display = '';
+            
             renderJobCards();
             updateCountryMap();  // Update country counts
             initSlider();
         }
     } catch (error) {
         console.error('❌ Błąd ładowania ofert z CRM:', error);
-        // Pokaż komunikat błędu zamiast używać mock data
-        document.querySelector('.jobs-section').innerHTML = `
-            <div class="container" style="text-align: center; padding: 4rem 0;">
-                <h2 class="section-title">Błąd ładowania ofert</h2>
-                <p style="font-size: 1.2rem; color: #666; margin-top: 1rem;">
+        // Show error message in slider area
+        const sliderContainer = document.querySelector('.slider-container');
+        const dotsContainer = document.getElementById('sliderDots');
+        
+        document.getElementById('sliderTrack').innerHTML = `
+            <div style="text-align: center; padding: 3rem 2rem; width: 100%;">
+                <p style="font-size: 1.2rem; color: #666;">
                     Nie udało się załadować ofert pracy z serwera.<br>
                     Spróbuj odświeżyć stronę lub wróć później.
                 </p>
@@ -209,6 +221,8 @@ async function loadJobs() {
                 </p>
             </div>
         `;
+        sliderContainer.style.display = 'none'; // Hide slider buttons
+        if (dotsContainer) dotsContainer.style.display = 'none'; // Hide dots
     }
 }
 
@@ -422,7 +436,11 @@ function createJobCard(job) {
 
 function createSliderDots() {
     const dotsContainer = document.getElementById('sliderDots');
+    if (!dotsContainer) return;
+    
     dotsContainer.innerHTML = '';
+    
+    if (!jobs || jobs.length === 0) return;
     
     const slidesCount = Math.ceil(jobs.length / getSlidesPerView());
     
@@ -491,6 +509,8 @@ function initSlider() {
 }
 
 function goToSlide(index) {
+    if (!jobs || jobs.length === 0) return;
+    
     const sliderTrack = document.getElementById('sliderTrack');
     const slidesPerView = getSlidesPerView();
     const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
@@ -504,6 +524,8 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
+    if (!jobs || jobs.length === 0) return;
+    
     const slidesPerView = getSlidesPerView();
     const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
     
@@ -517,6 +539,8 @@ function nextSlide() {
 }
 
 function previousSlide() {
+    if (!jobs || jobs.length === 0) return;
+    
     const slidesPerView = getSlidesPerView();
     const maxSlide = Math.ceil(jobs.length / slidesPerView) - 1;
     
