@@ -505,26 +505,26 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" data-aos="fade-left" method="POST">
-                    <!-- Web3Forms API Key -->
-                    <input type="hidden" name="access_key" value="a321996b-20bc-4b29-9fdd-120105298906">
+                <form id="contactForm" class="contact-form" data-aos="fade-left">
+                    <!-- Web3Forms API Key - NEW FORM -->
+                    <input type="hidden" name="access_key" value="0d815f76-1329-4c92-bd44-cfcaa9615a99">
                     <input type="hidden" name="_subject" value="Nowa wiadomość z formularza kontaktowego - WorkVIA">
                     
                     <div class="form-group">
-                        <label for="name">Imię i nazwisko</label>
-                        <input type="text" id="name" name="name" required autocomplete="name">
+                        <label for="contactName">Imię i nazwisko *</label>
+                        <input type="text" id="contactName" name="name" required autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required autocomplete="email">
+                        <label for="contactEmail">Email *</label>
+                        <input type="email" id="contactEmail" name="email" required autocomplete="email">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Telefon</label>
-                        <input type="tel" id="phone" name="phone" required autocomplete="tel">
+                        <label for="contactPhone">Telefon *</label>
+                        <input type="tel" id="contactPhone" name="phone" required autocomplete="tel">
                     </div>
                     <div class="form-group">
-                        <label for="subject">Temat</label>
-                        <select id="subject" name="subject" required>
+                        <label for="contactSubject">Temat *</label>
+                        <select id="contactSubject" name="subject" required>
                             <option value="">Wybierz temat</option>
                             <option value="Pytanie o ofertę pracy">Pytanie o ofertę pracy</option>
                             <option value="Aplikacja na stanowisko rekrutera">Aplikacja na stanowisko rekrutera</option>
@@ -532,9 +532,10 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="message">Wiadomość</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="contactMessage">Wiadomość *</label>
+                        <textarea id="contactMessage" name="message" rows="5" required></textarea>
                     </div>
+                    <div id="contactFormMessage"></div>
                     <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
                 </form>
             </div>
@@ -616,8 +617,8 @@
         </div>
     </div>
 
-    <script src="js/main.js?v=20260326-14"></script>
-    <script src="js/cookies.js?v=20260326-14"></script>
-    <script src="js/contact-form.js?v=20260326-14"></script>
+    <script src="js/main.js?v=20260326-15"></script>
+    <script src="js/cookies.js?v=20260326-15"></script>
+    <script src="js/contact-form.js?v=20260326-15"></script>
 </body>
 </html>
