@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Auto-select "Pytanie o ofertę pracy" in subject dropdown
             const subjectSelect = document.getElementById('subject');
             if (subjectSelect) {
-                subjectSelect.value = 'job';
+                subjectSelect.value = 'Pytanie o ofertę pracy';
             }
             
             // Pre-fill message with job info

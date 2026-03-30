@@ -508,6 +508,7 @@
                 <form class="contact-form" id="contactForm" data-aos="fade-left">
                     <!-- Web3Forms API Key -->
                     <input type="hidden" name="access_key" value="a321996b-20bc-4b29-9fdd-120105298906">
+                    <input type="hidden" name="_subject" value="Nowa wiadomość z formularza kontaktowego - WorkVIA">
                     <!-- Job Application Context (auto-filled from URL) -->
                     <input type="hidden" name="job_id" id="jobId" value="">
                     <input type="hidden" name="job_title" id="jobTitle" value="">
@@ -523,15 +524,15 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Telefon</label>
-                        <input type="tel" id="phone" name="phone" autocomplete="tel">
+                        <input type="tel" id="phone" name="phone" required autocomplete="tel">
                     </div>
                     <div class="form-group">
                         <label for="subject">Temat</label>
-                        <select id="subject" name="subject" required>
+                        <select id="subject" name="topic" required>
                             <option value="">Wybierz temat</option>
-                            <option value="job">Pytanie o ofertę pracy</option>
-                            <option value="recruiter">Aplikacja na stanowisko rekrutera</option>
-                            <option value="other">Inne</option>
+                            <option value="Pytanie o ofertę pracy">Pytanie o ofertę pracy</option>
+                            <option value="Aplikacja na stanowisko rekrutera">Aplikacja na stanowisko rekrutera</option>
+                            <option value="Inne">Inne</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -619,8 +620,8 @@
         </div>
     </div>
 
-    <script src="js/main.js?v=20260326-7"></script>
-    <script src="js/cookies.js?v=20260326-7"></script>
-    <script src="js/contact-form.js?v=20260326-7"></script>
+    <script src="js/main.js?v=20260326-8"></script>
+    <script src="js/cookies.js?v=20260326-8"></script>
+    <script src="js/contact-form.js?v=20260326-8"></script>
 </body>
 </html>
