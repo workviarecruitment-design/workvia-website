@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            console.log('🔍 Form element:', contactForm);
+            console.log('🔍 Wszystkie pola wejściowe:', contactForm.querySelectorAll('input, select, textarea'));
+            
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             
@@ -16,18 +19,31 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
             
+            // Debug każdego pola przed pobraniem
+            const nameField = contactForm.querySelector('[name="name"]');
+            const emailField = contactForm.querySelector('[name="email"]');
+            const phoneField = contactForm.querySelector('[name="phone"]');
+            const topicField = contactForm.querySelector('[name="topic"]');
+            const messageField = contactForm.querySelector('[name="message"]');
+            
+            console.log('🔍 Name field:', nameField, 'Value:', nameField?.value);
+            console.log('🔍 Email field:', emailField, 'Value:', emailField?.value);
+            console.log('🔍 Phone field:', phoneField, 'Value:', phoneField?.value);
+            console.log('🔍 Topic field:', topicField, 'Value:', topicField?.value);
+            console.log('🔍 Message field:', messageField, 'Value:', messageField?.value);
+            
             // Get form values directly from inputs
             const formObject = {
-                access_key: contactForm.querySelector('[name="access_key"]').value,
-                _subject: contactForm.querySelector('[name="_subject"]').value,
-                name: contactForm.querySelector('[name="name"]').value,
-                email: contactForm.querySelector('[name="email"]').value,
-                phone: contactForm.querySelector('[name="phone"]').value,
-                topic: contactForm.querySelector('[name="topic"]').value,
-                message: contactForm.querySelector('[name="message"]').value,
-                job_id: contactForm.querySelector('[name="job_id"]').value,
-                job_title: contactForm.querySelector('[name="job_title"]').value,
-                job_location: contactForm.querySelector('[name="job_location"]').value
+                access_key: contactForm.querySelector('[name="access_key"]')?.value || '',
+                _subject: contactForm.querySelector('[name="_subject"]')?.value || '',
+                name: nameField?.value || '',
+                email: emailField?.value || '',
+                phone: phoneField?.value || '',
+                topic: topicField?.value || '',
+                message: messageField?.value || '',
+                job_id: contactForm.querySelector('[name="job_id"]')?.value || '',
+                job_title: contactForm.querySelector('[name="job_title"]')?.value || '',
+                job_location: contactForm.querySelector('[name="job_location"]')?.value || ''
             };
             
             console.log('📧 Wysyłane dane:', formObject);
