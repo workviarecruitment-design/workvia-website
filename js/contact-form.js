@@ -16,49 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
             
-            // Get values by ID (most reliable)
-            const nameValue = document.getElementById('name').value.trim();
-            const emailValue = document.getElementById('email').value.trim();
-            const phoneValue = document.getElementById('phone').value.trim();
-            const subjectValue = document.getElementById('subject').value.trim();
-            const messageValue = document.getElementById('message').value.trim();
-            
-            console.log('🔍 Wartości z pól (przez ID):');
-            console.log('  Name:', nameValue);
-            console.log('  Email:', emailValue);
-            console.log('  Phone:', phoneValue);
-            console.log('  Subject:', subjectValue);
-            console.log('  Message:', messageValue);
-            
-            // Get form values
-            const formObject = {
-                access_key: 'a321996b-20bc-4b29-9fdd-120105298906',
-                _subject: 'Nowa wiadomość z formularza kontaktowego - WorkVIA',
-                name: nameValue,
-                email: emailValue,
-                phone: phoneValue,
-                topic: subjectValue,
-                message: messageValue,
-                job_id: document.getElementById('jobId')?.value || '',
-                job_title: document.getElementById('jobTitle')?.value || '',
-                job_location: document.getElementById('jobLocation')?.value || ''
-            };
-            
-            console.log('📧 Wysyłane dane:', formObject);
-            
             try {
+                // Use FormData directly - browser collects values natively
+                // This works even with autofill when .value is empty
+                const formData = new FormData(contactForm);
+                
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formObject)
+                    body: formData
                 });
                 
                 const data = await response.json();
-                
-                console.log('📬 Odpowiedź serwera:', data);
                 
                 if (data.success) {
                     // Success message
