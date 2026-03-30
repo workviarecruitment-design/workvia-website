@@ -16,14 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
             
-            // Get form data and convert to object
-            const formData = new FormData(contactForm);
-            const formObject = {};
-            
-            // Convert FormData to plain object
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
+            // Get form values directly from inputs
+            const formObject = {
+                access_key: contactForm.querySelector('[name="access_key"]').value,
+                _subject: contactForm.querySelector('[name="_subject"]').value,
+                name: contactForm.querySelector('[name="name"]').value,
+                email: contactForm.querySelector('[name="email"]').value,
+                phone: contactForm.querySelector('[name="phone"]').value,
+                topic: contactForm.querySelector('[name="topic"]').value,
+                message: contactForm.querySelector('[name="message"]').value,
+                job_id: contactForm.querySelector('[name="job_id"]').value,
+                job_title: contactForm.querySelector('[name="job_title"]').value,
+                job_location: contactForm.querySelector('[name="job_location"]').value
+            };
             
             console.log('📧 Wysyłane dane:', formObject);
             
