@@ -16,16 +16,30 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
             
-            // Get form data
+            // Get form data and convert to object
             const formData = new FormData(contactForm);
+            const formObject = {};
+            
+            // Convert FormData to plain object
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            console.log('📧 Wysyłane dane:', formObject);
             
             try {
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
                 });
                 
                 const data = await response.json();
+                
+                console.log('📬 Odpowiedź serwera:', data);
                 
                 if (data.success) {
                     // Success message
