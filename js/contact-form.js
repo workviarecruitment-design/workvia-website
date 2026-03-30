@@ -1,19 +1,17 @@
-// Contact Form Handler - REWRITTEN to match working application form
+// Contact Form Handler - EXACT COPY from working applicationForm
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm');
-    
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            const msgContainer = document.getElementById('contactFormMessage') || createMessageContainer();
+            const msgContainer = document.getElementById('contactFormMessage');
             
             // Show loading
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
-            msgContainer.innerHTML = '';
             
             try {
                 const formData = new FormData(contactForm);
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 
                 if (data.success) {
-                    msgContainer.innerHTML = '<div class="form-message form-message-success">✅ Wiadomość wysłana! Skontaktujemy się z Tobą wkrótce.</div>';
+                    msgContainer.innerHTML = '<div class="form-message form-message-success">✅ Wiadomość wysłana! Skontaktujemy się wkrótce.</div>';
                     contactForm.reset();
                 } else {
                     throw new Error('Submission failed');
@@ -39,12 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = originalText;
             }
         });
-    }
-    
-    function createMessageContainer() {
-        const container = document.createElement('div');
-        container.id = 'contactFormMessage';
-        contactForm.appendChild(container);
-        return container;
     }
 });
