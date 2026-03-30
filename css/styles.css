@@ -1158,6 +1158,169 @@ button {
 }
 
 /* ===================================
+   Recruiters Team Section
+   =================================== */
+.recruiters-team {
+    padding: var(--spacing-xl) 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.recruiters-team::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--color-primary) 50%, 
+        transparent 100%
+    );
+}
+
+.recruiters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.recruiter-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.recruiter-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.recruiter-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+}
+
+.recruiter-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.recruiter-card:hover .recruiter-image {
+    transform: scale(1.05);
+}
+
+.recruiter-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recruiter-content {
+    padding: 2rem;
+}
+
+.recruiter-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.recruiter-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+}
+
+.recruiter-quote {
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.quote-icon {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+    opacity: 0.3;
+}
+
+.recruiter-quote p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #64748b;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .recruiters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .recruiters-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .recruiter-card {
+        margin-bottom: 1rem;
+    }
+    
+    .recruiter-image-wrapper {
+        height: 280px;
+    }
+    
+    .recruiter-content {
+        padding: 1.5rem;
+    }
+    
+    .recruiter-name {
+        font-size: 1.3rem;
+    }
+    
+    .recruiter-quote p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===================================
    Process Section
    =================================== */
 .process {
