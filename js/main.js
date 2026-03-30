@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadJobs();
     initScrollAnimations();
     initScrollTop();
-    initContactForm();
     smoothScroll();
 });
 
@@ -694,27 +693,7 @@ function initScrollTop() {
 // ===================================
 // Contact Form
 // ===================================
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-    
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        
-        // Here you would typically send data to a server
-        // For now, we'll just show a success message
-        console.log('Form submitted:', data);
-        
-        // Show success message
-        showNotification('Wiadomość wysłana pomyślnie! Skontaktujemy się z Tobą wkrótce.', 'success');
-        
-        // Reset form
-        form.reset();
-    });
-}
+// Contact form is handled by contact-form.js
 
 // ===================================
 // Notification System
