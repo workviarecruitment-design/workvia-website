@@ -9,9 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            console.log('🔍 Form element:', contactForm);
-            console.log('🔍 Wszystkie pola wejściowe:', contactForm.querySelectorAll('input, select, textarea'));
-            
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             
@@ -19,31 +16,32 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = '⏳ Wysyłanie...';
             
-            // Debug każdego pola przed pobraniem
-            const nameField = contactForm.querySelector('[name="name"]');
-            const emailField = contactForm.querySelector('[name="email"]');
-            const phoneField = contactForm.querySelector('[name="phone"]');
-            const topicField = contactForm.querySelector('[name="topic"]');
-            const messageField = contactForm.querySelector('[name="message"]');
+            // Get values by ID (most reliable)
+            const nameValue = document.getElementById('name').value.trim();
+            const emailValue = document.getElementById('email').value.trim();
+            const phoneValue = document.getElementById('phone').value.trim();
+            const subjectValue = document.getElementById('subject').value.trim();
+            const messageValue = document.getElementById('message').value.trim();
             
-            console.log('🔍 Name field:', nameField, 'Value:', nameField?.value);
-            console.log('🔍 Email field:', emailField, 'Value:', emailField?.value);
-            console.log('🔍 Phone field:', phoneField, 'Value:', phoneField?.value);
-            console.log('🔍 Topic field:', topicField, 'Value:', topicField?.value);
-            console.log('🔍 Message field:', messageField, 'Value:', messageField?.value);
+            console.log('🔍 Wartości z pól (przez ID):');
+            console.log('  Name:', nameValue);
+            console.log('  Email:', emailValue);
+            console.log('  Phone:', phoneValue);
+            console.log('  Subject:', subjectValue);
+            console.log('  Message:', messageValue);
             
-            // Get form values directly from inputs
+            // Get form values
             const formObject = {
-                access_key: contactForm.querySelector('[name="access_key"]')?.value || '',
-                _subject: contactForm.querySelector('[name="_subject"]')?.value || '',
-                name: nameField?.value || '',
-                email: emailField?.value || '',
-                phone: phoneField?.value || '',
-                topic: topicField?.value || '',
-                message: messageField?.value || '',
-                job_id: contactForm.querySelector('[name="job_id"]')?.value || '',
-                job_title: contactForm.querySelector('[name="job_title"]')?.value || '',
-                job_location: contactForm.querySelector('[name="job_location"]')?.value || ''
+                access_key: 'a321996b-20bc-4b29-9fdd-120105298906',
+                _subject: 'Nowa wiadomość z formularza kontaktowego - WorkVIA',
+                name: nameValue,
+                email: emailValue,
+                phone: phoneValue,
+                topic: subjectValue,
+                message: messageValue,
+                job_id: document.getElementById('jobId')?.value || '',
+                job_title: document.getElementById('jobTitle')?.value || '',
+                job_location: document.getElementById('jobLocation')?.value || ''
             };
             
             console.log('📧 Wysyłane dane:', formObject);
