@@ -505,14 +505,10 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm" data-aos="fade-left">
+                <form class="contact-form" id="contactForm" data-aos="fade-left" method="POST">
                     <!-- Web3Forms API Key -->
                     <input type="hidden" name="access_key" value="a321996b-20bc-4b29-9fdd-120105298906">
                     <input type="hidden" name="_subject" value="Nowa wiadomość z formularza kontaktowego - WorkVIA">
-                    <!-- Job Application Context (auto-filled from URL) -->
-                    <input type="hidden" name="job_id" id="jobId" value="">
-                    <input type="hidden" name="job_title" id="jobTitle" value="">
-                    <input type="hidden" name="job_location" id="jobLocation" value="">
                     
                     <div class="form-group">
                         <label for="name">Imię i nazwisko</label>
@@ -528,7 +524,7 @@
                     </div>
                     <div class="form-group">
                         <label for="subject">Temat</label>
-                        <select id="subject" name="topic" required>
+                        <select id="subject" name="subject" required>
                             <option value="">Wybierz temat</option>
                             <option value="Pytanie o ofertę pracy">Pytanie o ofertę pracy</option>
                             <option value="Aplikacja na stanowisko rekrutera">Aplikacja na stanowisko rekrutera</option>
@@ -620,8 +616,8 @@
         </div>
     </div>
 
-    <script src="js/main.js?v=20260326-13"></script>
-    <script src="js/cookies.js?v=20260326-13"></script>
-    <script src="js/contact-form.js?v=20260326-13"></script>
+    <script src="js/main.js?v=20260326-14"></script>
+    <script src="js/cookies.js?v=20260326-14"></script>
+    <script src="js/contact-form.js?v=20260326-14"></script>
 </body>
 </html>

@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        // Check for job application context in URL
-        checkJobApplicationContext();
-        
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -64,44 +61,5 @@ document.addEventListener('DOMContentLoaded', () => {
             message.style.opacity = '0';
             setTimeout(() => message.remove(), 300);
         }, 5000);
-    }
-    
-    function checkJobApplicationContext() {
-        // Parse URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const jobId = urlParams.get('job_id');
-        const jobTitle = urlParams.get('job_title');
-        const jobLocation = urlParams.get('job_location');
-        
-        if (jobId && jobTitle) {
-            // Fill hidden fields
-            document.getElementById('jobId').value = jobId;
-            document.getElementById('jobTitle').value = jobTitle;
-            document.getElementById('jobLocation').value = jobLocation || '';
-            
-            // Auto-select "Pytanie o ofertę pracy" in subject dropdown
-            const subjectSelect = document.getElementById('subject');
-            if (subjectSelect) {
-                subjectSelect.value = 'Pytanie o ofertę pracy';
-            }
-            
-            // Pre-fill message with job info
-            const messageField = document.getElementById('message');
-            if (messageField && !messageField.value) {
-                messageField.value = `Dzień dobry,\n\nChciałbym/Chciałabym aplikować na stanowisko:\n\n📋 ID Oferty: ${jobId}\n📌 Stanowisko: ${jobTitle}\n📍 Lokalizacja: ${jobLocation || 'N/A'}\n\n`;
-                messageField.focus();
-                // Move cursor to end
-                messageField.setSelectionRange(messageField.value.length, messageField.value.length);
-            }
-            
-            // Show notification
-            const notification = document.createElement('div');
-            notification.className = 'job-application-notice';
-            notification.innerHTML = `
-                <strong>📋 Aplikujesz na:</strong> ${jobTitle} (ID: ${jobId})<br>
-                <small>Informacje o ofercie zostały automatycznie dodane poniżej</small>
-            `;
-            contactForm.insertBefore(notification, contactForm.firstChild);
-        }
     }
 });
