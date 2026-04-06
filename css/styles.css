@@ -2498,6 +2498,58 @@ button {
     50% { transform: scale(1.15); }
 }
 
+/* Attention Tooltip */
+.evia-tooltip {
+    position: absolute;
+    bottom: 10px;
+    right: 72px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.evia-tooltip-visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    animation: evia-tooltip-bounce 2s ease-in-out infinite 0.5s;
+}
+
+.evia-tooltip-hidden {
+    opacity: 0 !important;
+    transform: translateX(20px) !important;
+    pointer-events: none !important;
+}
+
+.evia-tooltip-text {
+    background: linear-gradient(135deg, var(--color-secondary), #252b4f);
+    color: var(--color-white);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(26, 31, 58, 0.3);
+    letter-spacing: 0.01em;
+}
+
+.evia-tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 10px solid var(--color-secondary);
+    flex-shrink: 0;
+}
+
+@keyframes evia-tooltip-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-6px); }
+}
+
 /* Chat Window */
 .evia-window {
     position: absolute;
@@ -2833,5 +2885,15 @@ button {
 
     .evia-messages {
         min-height: 200px;
+    }
+
+    .evia-tooltip {
+        right: 64px;
+        bottom: 8px;
+    }
+
+    .evia-tooltip-text {
+        font-size: 0.78rem;
+        padding: 8px 14px;
     }
 }

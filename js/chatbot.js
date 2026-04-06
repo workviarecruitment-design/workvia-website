@@ -83,6 +83,10 @@
     function injectChatbot() {
         const html = `
         <div id="evia-chatbot" class="evia-chatbot">
+            <div class="evia-tooltip" id="eviaTooltip">
+                <span class="evia-tooltip-text">✨ Wypróbuj Chatbota e-Via!</span>
+                <span class="evia-tooltip-arrow"></span>
+            </div>
             <button class="evia-toggle" id="eviaToggle" aria-label="Otwórz czat z e-Via">
                 <svg class="evia-toggle-icon evia-icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -221,7 +225,23 @@
             if (isOpen) setTimeout(() => input.focus(), 350);
         }
 
-        toggle.addEventListener('click', toggleChat);
+        // Attention tooltip
+        const tooltip = document.getElementById('eviaTooltip');
+        function hideTooltip() {
+            tooltip.classList.remove('evia-tooltip-visible');
+            tooltip.classList.add('evia-tooltip-hidden');
+            sessionStorage.setItem('eviaTooltipSeen', '1');
+        }
+        if (!sessionStorage.getItem('eviaTooltipSeen')) {
+            setTimeout(() => {
+                if (!isOpen) tooltip.classList.add('evia-tooltip-visible');
+            }, 3000);
+            setTimeout(() => {
+                if (tooltip.classList.contains('evia-tooltip-visible')) hideTooltip();
+            }, 13000);
+        }
+
+        toggle.addEventListener('click', () => { hideTooltip(); toggleChat(); });
         close.addEventListener('click', toggleChat);
 
         form.addEventListener('submit', (e) => {
