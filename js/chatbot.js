@@ -1,186 +1,74 @@
 // ===================================
-// e-Via Chatbot for WorkVIA
+// e-Via Chatbot for WorkVIA — AI-powered (GPT)
 // ===================================
 
 (function () {
     'use strict';
 
-    // --- CONFIG ---
     const BOT_NAME = 'e-Via';
-    const TYPING_DELAY = 600;
+    const API_URL = '/api/chat';
 
-    const COMPANY_INFO = {
-        name: 'WorkVIA Recruitment',
+    // --- COMPANY INFO (fallback) ---
+    const COMPANY = {
         email: 'workvia.recruitment@gmail.com',
-        phone: '+48 453 310 569',
-        address: 'WorkVia Recruitment, Magdalena Syrnicka, 89356 Haldenwang, Deutschland',
-        hours: 'Poniedziałek–Piątek: 8:00–18:00, Sobota: 9:00–14:00',
-        website: 'https://workvia.com.pl',
-        description: 'Profesjonalna agencja rekrutacyjna specjalizująca się w zatrudnieniu w krajach Zachodniej Europy (Niemcy, Holandia, Belgia i inne). Pomagamy kandydatom znaleźć legalną, stabilną pracę z zakwaterowaniem i atrakcyjnym wynagrodzeniem.',
-        services: [
-            'Rekrutacja do pracy w Niemczech, Holandii, Belgii i innych krajach UE',
-            'Pomoc w legalizacji zatrudnienia',
-            'Organizacja zakwaterowania dla pracowników',
-            'Wsparcie podczas całego procesu rekrutacji',
-            'Doradztwo zawodowe'
-        ]
+        phone: '+48 453 310 569'
     };
 
-    // --- KNOWLEDGE BASE ---
-    const PATTERNS = [
+    // --- FALLBACK KEYWORD RESPONSES (when AI unavailable) ---
+    const FALLBACK_PATTERNS = [
         {
-            keywords: ['cześć', 'czesc', 'hej', 'siema', 'witaj', 'witam', 'dzień dobry', 'dzien dobry', 'hello', 'hi', 'hejka', 'yo'],
-            response: () => `Cześć! 👋 Jestem ${BOT_NAME}, wirtualny asystent WorkVIA.\n\nW czym mogę Ci pomóc?\n• Szukasz pracy za granicą?\n• Chcesz poznać nasze oferty?\n• Potrzebujesz kontaktu z nami?\n\nWpisz pytanie lub wybierz temat poniżej! 😊`
+            keywords: ['cześć', 'czesc', 'hej', 'witaj', 'witam', 'dzień dobry', 'hello', 'hi'],
+            response: `Cześć! 👋 Jestem ${BOT_NAME}, wirtualny asystent WorkVIA.\n\nW czym mogę Ci pomóc?\n• Szukasz pracy za granicą?\n• Chcesz poznać nasze oferty?\n• Potrzebujesz kontaktu z nami? 😊`
         },
         {
-            keywords: ['kontakt', 'telefon', 'mail', 'email', 'e-mail', 'numer', 'zadzwonić', 'zadzwonic', 'napisać', 'napisac', 'adres'],
-            response: () => `📞 **Kontakt z WorkVIA:**\n\n📧 E-mail: ${COMPANY_INFO.email}\n📱 Telefon: ${COMPANY_INFO.phone}\n📍 Adres: ${COMPANY_INFO.address}\n\n🕐 **Godziny pracy:**\n${COMPANY_INFO.hours}\n\nMożesz też wypełnić formularz kontaktowy na dole tej strony! ⬇️`
+            keywords: ['kontakt', 'telefon', 'mail', 'email', 'numer', 'zadzwonić', 'adres'],
+            response: `📞 **Kontakt z WorkVIA:**\n\n📧 E-mail: ${COMPANY.email}\n📱 Telefon: ${COMPANY.phone}\n📍 Adres: WorkVia Recruitment, 89356 Haldenwang, Deutschland\n\n🕐 Pon-Pt: 8:00-18:00, Sob: 9:00-14:00`
         },
         {
-            keywords: ['godziny', 'kiedy', 'otwarte', 'dostępni', 'dostepni', 'pracujecie', 'czynne'],
-            response: () => `🕐 **Godziny pracy WorkVIA:**\n\n${COMPANY_INFO.hours}\n\nPoza godzinami pracy napisz do nas na: ${COMPANY_INFO.email} — odpowiemy w ciągu 24h! 📧`
+            keywords: ['oferty', 'praca', 'prace', 'zatrudnienie', 'stanowisk'],
+            response: `📋 Nasze oferty pracy znajdziesz na:\n👉 [Zobacz oferty](oferty.html)\n\nSpecjalizujemy się w rekrutacji do pracy w Zachodniej Europie!`
         },
         {
-            keywords: ['oferty', 'praca', 'prace', 'zatrudnienie', 'stanowisk', 'wakat', 'job', 'jobs', 'oferta'],
-            response: () => {
-                if (typeof jobs !== 'undefined' && jobs.length > 0) {
-                    const countries = [...new Set(jobs.map(j => j.country))];
-                    return `📋 **Aktualnie mamy ${jobs.length} aktywnych ofert pracy!**\n\nKraje: ${countries.map(c => jobs.find(j => j.country === c)?.flag + ' ' + c).join(', ')}\n\nChcesz zobaczyć oferty? 👉 [Zobacz wszystkie oferty](oferty.html)\n\nMożesz też zapytać mnie np.:\n• „Jakie oferty są w Niemczech?"\n• „Szukam pracy w Holandii"\n• „Pokaż oferty z zakwaterowaniem"`;
-                }
-                return `📋 Nasze oferty pracy znajdziesz na stronie:\n👉 [Zobacz oferty](oferty.html)\n\nSpecjalizujemy się w rekrutacji do pracy w Zachodniej Europie!`;
-            }
-        },
-        {
-            keywords: ['niemcy', 'niemcz', 'germany', 'deutschland', 'de'],
-            response: () => searchJobsByCountry('Niemcy', '🇩🇪')
-        },
-        {
-            keywords: ['holandia', 'holland', 'netherlands', 'nl', 'holend'],
-            response: () => searchJobsByCountry('Holandia', '🇳🇱')
-        },
-        {
-            keywords: ['belgia', 'belgium', 'belgii', 'be'],
-            response: () => searchJobsByCountry('Belgia', '🇧🇪')
-        },
-        {
-            keywords: ['francja', 'france', 'fr'],
-            response: () => searchJobsByCountry('Francja', '🇫🇷')
-        },
-        {
-            keywords: ['austria', 'at', 'austrii'],
-            response: () => searchJobsByCountry('Austria', '🇦🇹')
-        },
-        {
-            keywords: ['zakwaterowanie', 'mieszkanie', 'nocleg', 'accommodation', 'kwater'],
-            response: () => {
-                if (typeof jobs !== 'undefined' && jobs.length > 0) {
-                    const withAccom = jobs.filter(j =>
-                        j.tags.some(t => t.toLowerCase().includes('zakwaterowanie')) ||
-                        j.benefits?.toLowerCase().includes('zakwaterowanie') ||
-                        j.benefits?.toLowerCase().includes('mieszkanie')
-                    );
-                    if (withAccom.length > 0) {
-                        const list = withAccom.slice(0, 5).map(j => `• ${j.flag} **${j.title}** — ${j.location} | ${j.salary}`).join('\n');
-                        return `🏠 **Oferty z zakwaterowaniem (${withAccom.length}):**\n\n${list}${withAccom.length > 5 ? `\n\n...i ${withAccom.length - 5} więcej!` : ''}\n\n👉 [Zobacz wszystkie oferty](oferty.html)`;
-                    }
-                }
-                return `🏠 Wiele naszych ofert zawiera zakwaterowanie w cenie lub z dopłatą pracodawcy.\n\nSprawdź szczegóły poszczególnych ofert:\n👉 [Zobacz oferty](oferty.html)`;
-            }
-        },
-        {
-            keywords: ['wynagrodzenie', 'zarobki', 'pensja', 'płaca', 'placa', 'salary', 'ile zarab', 'ile płac', 'stawka', 'ile płacą'],
-            response: () => {
-                if (typeof jobs !== 'undefined' && jobs.length > 0) {
-                    const withSalary = jobs.filter(j => j.salary && j.salary !== 'Do uzgodnienia');
-                    if (withSalary.length > 0) {
-                        const examples = withSalary.slice(0, 4).map(j => `• ${j.flag} ${j.title} — **${j.salary}**`).join('\n');
-                        return `💰 **Przykładowe wynagrodzenia:**\n\n${examples}\n\nWynagrodzenie zależy od stanowiska, doświadczenia i kraju.\n\n👉 [Sprawdź wszystkie oferty](oferty.html)`;
-                    }
-                }
-                return `💰 Wynagrodzenia zależą od stanowiska i kraju. Nasze oferty obejmują wynagrodzenia od kilkunastu do kilkudziesięciu EUR/h.\n\n👉 [Sprawdź aktualne oferty](oferty.html)`;
-            }
-        },
-        {
-            keywords: ['jak aplikow', 'jak się zgłosić', 'jak zgłosic', 'jak złożyć', 'jak zlozic', 'aplikować', 'aplikowac', 'cv', 'rekrutacja', 'proces'],
-            response: () => `📝 **Jak aplikować?**\n\n1️⃣ Przejdź do naszych ofert: [oferty.html](oferty.html)\n2️⃣ Wybierz interesującą ofertę\n3️⃣ Kliknij **„Aplikuj teraz"**\n4️⃣ Wypełnij formularz (imię, e-mail, telefon, wiadomość)\n5️⃣ Nasz rekruter skontaktuje się z Tobą!\n\nMożesz też napisać do nas bezpośrednio:\n📧 ${COMPANY_INFO.email}\n📱 ${COMPANY_INFO.phone}`
-        },
-        {
-            keywords: ['o firmie', 'o was', 'kim jesteście', 'kim jestescie', 'czym się zajmujecie', 'o workvia', 'co robicie', 'jaka firma'],
-            response: () => `🏢 **O WorkVIA Recruitment:**\n\n${COMPANY_INFO.description}\n\n🌟 **Nasze usługi:**\n${COMPANY_INFO.services.map(s => `• ${s}`).join('\n')}\n\n📍 Siedziba: Haldenwang, Niemcy\n🌐 Działamy na terenie całej Europy`
-        },
-        {
-            keywords: ['dokumenty', 'dokument', 'umowa', 'co potrzebuj', 'wymagane', 'potrzebne'],
-            response: () => `📄 **Jakie dokumenty potrzebujesz?**\n\n• 🪪 Dowód osobisty lub paszport\n• 📋 CV (pomożemy je przygotować!)\n• 🎓 Dokumenty potwierdzające kwalifikacje (jeśli wymagane)\n\nReszta formalności leży po naszej stronie — pomagamy z umową, legalizacją i zakwaterowaniem! 💪\n\nPytania? Napisz: ${COMPANY_INFO.email}`
-        },
-        {
-            keywords: ['język', 'jezyk', 'angielski', 'niemiecki', 'znajomość', 'znajomosc', 'mówić', 'mowic', 'komunikacja'],
-            response: () => `🗣️ **Wymagania językowe:**\n\nTo zależy od stanowiska:\n• 🔧 Praca fizyczna — często wystarczy podstawowy angielski lub niemiecki\n• 📋 Praca biurowa — zwykle wymagany min. B1/B2\n• 🏗️ Budowlanka — często bez wymagań językowych\n\nSprawdź wymagania konkretnej oferty:\n👉 [Oferty pracy](oferty.html)\n\nNie znasz języka? Nie szkodzi — mamy oferty bez wymagań językowych! 🌍`
-        },
-        {
-            keywords: ['bezpiecz', 'legaln', 'oszust', 'scam', 'wiarygod', 'zaufan', 'pewn'],
-            response: () => `🔒 **WorkVIA to legalna agencja rekrutacyjna:**\n\n✅ Zarejestrowana działalność w Niemczech\n✅ Legalne umowy o pracę\n✅ Transparentne warunki zatrudnienia\n✅ Nie pobieramy opłat od kandydatów\n✅ Wsparcie przez cały okres zatrudnienia\n\n📍 Siedziba: ${COMPANY_INFO.address}\n📧 Kontakt: ${COMPANY_INFO.email}\n📱 Tel: ${COMPANY_INFO.phone}`
-        },
-        {
-            keywords: ['dziękuję', 'dziekuje', 'dzięki', 'dzieki', 'thanks', 'thx', 'super', 'fajnie', 'ok dzięki', 'git'],
-            response: () => `Cała przyjemność po mojej stronie! 😊\n\nJeśli masz jeszcze pytania — pisz śmiało! Jestem tu dla Ciebie 24/7.\n\nPowodzenia w szukaniu pracy! 🍀`
-        },
-        {
-            keywords: ['pa', 'do widzenia', 'nara', 'cześć na razie', 'do zobaczenia', 'bye', 'papa'],
-            response: () => `Do zobaczenia! 👋\n\nJeśli będziesz potrzebować pomocy — wracaj w każdej chwili!\n\nŻyczę powodzenia! 🌟 — ${BOT_NAME}`
+            keywords: ['jak aplikow', 'jak się zgłosić', 'aplikować', 'cv', 'rekrutacja'],
+            response: `📝 **Jak aplikować?**\n\n1️⃣ Przejdź do [oferty pracy](oferty.html)\n2️⃣ Wybierz interesującą ofertę\n3️⃣ Kliknij **„Aplikuj teraz"**\n4️⃣ Wypełnij formularz\n5️⃣ Rekruter skontaktuje się w ciągu 24h!`
         }
     ];
 
-    // --- JOB SEARCH HELPERS ---
-    function searchJobsByCountry(country, flag) {
-        if (typeof jobs !== 'undefined' && jobs.length > 0) {
-            const found = jobs.filter(j =>
-                j.country?.toLowerCase().includes(country.toLowerCase())
-            );
-            if (found.length > 0) {
-                const list = found.slice(0, 5).map(j => `• **${j.title}** — ${j.location} | ${j.salary}`).join('\n');
-                return `${flag} **Oferty pracy w kraju: ${country} (${found.length}):**\n\n${list}${found.length > 5 ? `\n\n...i ${found.length - 5} więcej!` : ''}\n\n👉 [Zobacz wszystkie oferty w ${country}](oferty.html)`;
-            }
-            return `${flag} Niestety aktualnie nie mamy ofert w ${country}.\n\nAle nowe oferty pojawiają się regularnie! Sprawdzaj:\n👉 [oferty.html](oferty.html)\n\nLub napisz do nas: ${COMPANY_INFO.email}`;
-        }
-        return `${flag} Oferty z ${country} znajdziesz na:\n👉 [oferty.html](oferty.html)`;
-    }
-
-    function searchJobsByKeyword(query) {
-        if (typeof jobs === 'undefined' || jobs.length === 0) return null;
-
-        const q = query.toLowerCase();
-        const found = jobs.filter(j =>
-            j.title?.toLowerCase().includes(q) ||
-            j.location?.toLowerCase().includes(q) ||
-            j.description?.toLowerCase().includes(q) ||
-            j.country?.toLowerCase().includes(q) ||
-            j.tags?.some(t => t.toLowerCase().includes(q))
-        );
-
-        if (found.length > 0) {
-            const list = found.slice(0, 5).map(j => `• ${j.flag} **${j.title}** — ${j.location} | ${j.salary}`).join('\n');
-            return `🔍 **Wyniki wyszukiwania „${query}" (${found.length}):**\n\n${list}${found.length > 5 ? `\n\n...i ${found.length - 5} więcej!` : ''}\n\n👉 [Zobacz wszystkie oferty](oferty.html)`;
-        }
-        return null;
-    }
-
-    function getDefaultResponse(input) {
-        // Try keyword search in jobs
-        const jobResult = searchJobsByKeyword(input);
-        if (jobResult) return jobResult;
-
-        return `Hmm, nie jestem pewien jak odpowiedzieć na to pytanie. 🤔\n\nMogę pomóc z:\n• 📋 **Oferty pracy** — „Pokaż oferty"\n• 🌍 **Praca w konkretnym kraju** — np. „Niemcy", „Holandia"\n• 💰 **Wynagrodzenia** — „Ile zarabiam?"\n• 📝 **Jak aplikować** — „Jak się zgłosić?"\n• 📞 **Kontakt** — „Dane kontaktowe"\n• 🏢 **O firmie** — „Kim jesteście?"\n\nLub zadzwoń do nas: ${COMPANY_INFO.phone} 📱`;
-    }
-
-    // --- MATCHING ---
-    function findResponse(input) {
+    function fallbackResponse(input) {
         const cleaned = input.toLowerCase().trim();
-        for (const pattern of PATTERNS) {
-            if (pattern.keywords.some(kw => cleaned.includes(kw))) {
-                return pattern.response();
-            }
+        for (const p of FALLBACK_PATTERNS) {
+            if (p.keywords.some(kw => cleaned.includes(kw))) return p.response;
         }
-        return getDefaultResponse(cleaned);
+        return `Przepraszam, mam chwilowe problemy z połączeniem. 😅\n\nSkontaktuj się z nami:\n📧 ${COMPANY.email}\n📱 ${COMPANY.phone}\n👉 [Oferty pracy](oferty.html)`;
+    }
+
+    // --- BUILD JOBS CONTEXT FOR AI ---
+    function buildJobsContext() {
+        if (typeof jobs === 'undefined' || !jobs.length) return '';
+        return jobs.slice(0, 30).map(j =>
+            `- ${j.title} | Kraj: ${j.country} | Miasto: ${j.location} | Wynagrodzenie: ${j.salary} | Typ: ${j.type} | Tagi: ${(j.tags || []).join(', ')}`
+        ).join('\n');
+    }
+
+    // --- AI CALL ---
+    async function getAIResponse(userMessage) {
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: userMessage,
+                    jobsContext: buildJobsContext()
+                })
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            if (data.reply) return data.reply;
+            throw new Error('Empty reply');
+        } catch (err) {
+            console.warn('e-Via AI fallback:', err.message);
+            return fallbackResponse(userMessage);
+        }
     }
 
     // --- SIMPLE MARKDOWN ---
@@ -214,7 +102,7 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="evia-header-name">${BOT_NAME}</div>
+                            <div class="evia-header-name">${BOT_NAME} <span class="evia-ai-badge">AI</span></div>
                             <div class="evia-header-status">
                                 <span class="evia-status-dot"></span> Online — odpowiadam natychmiast
                             </div>
@@ -230,10 +118,10 @@
                 <div class="evia-messages" id="eviaMessages"></div>
 
                 <div class="evia-quick-actions" id="eviaQuickActions">
-                    <button class="evia-quick-btn" data-msg="Pokaż oferty pracy">📋 Oferty pracy</button>
-                    <button class="evia-quick-btn" data-msg="Jak aplikować?">📝 Jak aplikować?</button>
-                    <button class="evia-quick-btn" data-msg="Kontakt">📞 Kontakt</button>
-                    <button class="evia-quick-btn" data-msg="O firmie WorkVIA">🏢 O firmie</button>
+                    <button class="evia-quick-btn" data-msg="Pokaż mi aktualne oferty pracy">📋 Oferty pracy</button>
+                    <button class="evia-quick-btn" data-msg="Jak mogę aplikować na ofertę pracy?">📝 Jak aplikować?</button>
+                    <button class="evia-quick-btn" data-msg="Podaj dane kontaktowe do WorkVIA">📞 Kontakt</button>
+                    <button class="evia-quick-btn" data-msg="Opowiedz mi o firmie WorkVIA">🏢 O firmie</button>
                 </div>
 
                 <form class="evia-input-area" id="eviaForm">
@@ -246,7 +134,6 @@
                 </form>
             </div>
         </div>`;
-
         document.body.insertAdjacentHTML('beforeend', html);
     }
 
@@ -267,41 +154,39 @@
         wrapper.appendChild(bubble);
         wrapper.appendChild(time);
         container.appendChild(wrapper);
-
-        requestAnimationFrame(() => {
-            container.scrollTop = container.scrollHeight;
-        });
+        requestAnimationFrame(() => { container.scrollTop = container.scrollHeight; });
     }
 
     function showTyping() {
         const container = document.getElementById('eviaMessages');
         const typing = document.createElement('div');
         typing.className = 'evia-msg evia-msg-bot evia-typing-indicator';
-        typing.innerHTML = `
-            <div class="evia-bubble evia-bubble-bot evia-typing">
-                <span></span><span></span><span></span>
-            </div>`;
+        typing.innerHTML = `<div class="evia-bubble evia-bubble-bot evia-typing"><span></span><span></span><span></span></div>`;
         container.appendChild(typing);
         container.scrollTop = container.scrollHeight;
         return typing;
     }
 
-    function handleUserMessage(text) {
+    async function handleUserMessage(text) {
         if (!text.trim()) return;
-
         addMessage(text, 'user');
 
-        // Hide quick actions after first message
         const quickActions = document.getElementById('eviaQuickActions');
         if (quickActions) quickActions.style.display = 'none';
 
-        const typingEl = showTyping();
+        const input = document.getElementById('eviaInput');
+        const sendBtn = document.getElementById('eviaSend');
+        input.disabled = true;
+        sendBtn.disabled = true;
 
-        setTimeout(() => {
-            typingEl.remove();
-            const response = findResponse(text);
-            addMessage(response, 'bot');
-        }, TYPING_DELAY + Math.random() * 400);
+        const typingEl = showTyping();
+        const response = await getAIResponse(text);
+        typingEl.remove();
+        addMessage(response, 'bot');
+
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
     }
 
     // --- INIT ---
@@ -330,13 +215,10 @@
             if (isOpen && !greeted) {
                 greeted = true;
                 setTimeout(() => {
-                    addMessage(`Cześć! 👋 Jestem **${BOT_NAME}**, wirtualny asystent WorkVIA.\n\nW czym mogę Ci dzisiaj pomóc? Możesz wpisać pytanie lub kliknąć jeden z przycisków poniżej! 😊`, 'bot');
+                    addMessage(`Cześć! 👋 Jestem **${BOT_NAME}**, inteligentny asystent WorkVIA.\n\nZapytaj mnie o cokolwiek związanego z pracą za granicą — odpowiem na podstawie aktualnych ofert! 🌍\n\nMożesz też kliknąć jeden z przycisków poniżej. 😊`, 'bot');
                 }, 300);
             }
-
-            if (isOpen) {
-                setTimeout(() => input.focus(), 350);
-            }
+            if (isOpen) setTimeout(() => input.focus(), 350);
         }
 
         toggle.addEventListener('click', toggleChat);
@@ -351,21 +233,16 @@
             }
         });
 
-        // Quick action buttons
         document.getElementById('eviaQuickActions').addEventListener('click', (e) => {
             const btn = e.target.closest('.evia-quick-btn');
-            if (btn) {
-                handleUserMessage(btn.dataset.msg);
-            }
+            if (btn) handleUserMessage(btn.dataset.msg);
         });
 
-        // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isOpen) toggleChat();
         });
     }
 
-    // Start when DOM ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
