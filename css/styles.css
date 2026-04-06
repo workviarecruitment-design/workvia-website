@@ -1796,7 +1796,7 @@ button {
    =================================== */
 .scroll-top {
     position: fixed;
-    bottom: 30px;
+    bottom: 96px;
     right: 30px;
     width: 50px;
     height: 50px;
@@ -2430,5 +2430,395 @@ button {
     .hero-image-wrapper {
         width: 780px;
         height: 780px;
+    }
+}
+
+/* ===================================
+   e-Via Chatbot
+   =================================== */
+.evia-chatbot {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    font-family: var(--font-primary);
+}
+
+/* Toggle Button */
+.evia-toggle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.evia-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(212, 175, 55, 0.5);
+}
+
+.evia-toggle-active {
+    background: var(--color-secondary);
+    box-shadow: 0 4px 20px rgba(26, 31, 58, 0.4);
+}
+
+.evia-toggle-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.evia-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 22px;
+    height: 22px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: evia-pulse 2s infinite;
+}
+
+@keyframes evia-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* Chat Window */
+.evia-window {
+    position: absolute;
+    bottom: 72px;
+    right: 0;
+    width: 380px;
+    max-height: 560px;
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.96);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.evia-window.evia-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+/* Header */
+.evia-header {
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
+    color: var(--color-white);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.evia-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.evia-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.evia-avatar svg {
+    width: 22px;
+    height: 22px;
+    stroke: white;
+}
+
+.evia-header-name {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.evia-header-status {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.evia-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    animation: evia-blink 2s infinite;
+}
+
+@keyframes evia-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.evia-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.evia-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.evia-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Messages */
+.evia-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 260px;
+    max-height: 340px;
+    scroll-behavior: smooth;
+}
+
+.evia-messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.evia-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.evia-messages::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.evia-msg {
+    display: flex;
+    flex-direction: column;
+    animation: evia-fadeIn 0.3s ease;
+}
+
+@keyframes evia-fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.evia-msg-bot { align-items: flex-start; }
+.evia-msg-user { align-items: flex-end; }
+
+.evia-bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    word-wrap: break-word;
+}
+
+.evia-bubble a {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.evia-bubble-bot {
+    background: #f1f5f9;
+    color: var(--color-text);
+    border-bottom-left-radius: 4px;
+}
+
+.evia-bubble-user {
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
+    color: var(--color-white);
+    border-bottom-right-radius: 4px;
+}
+
+.evia-time {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    margin-top: 4px;
+    padding: 0 4px;
+}
+
+/* Typing indicator */
+.evia-typing {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 18px;
+}
+
+.evia-typing span {
+    width: 7px;
+    height: 7px;
+    background: #94a3b8;
+    border-radius: 50%;
+    animation: evia-dot 1.4s infinite;
+}
+
+.evia-typing span:nth-child(2) { animation-delay: 0.2s; }
+.evia-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes evia-dot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Quick actions */
+.evia-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 16px 10px;
+    flex-shrink: 0;
+}
+
+.evia-quick-btn {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-family: var(--font-primary);
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.evia-quick-btn:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+/* Input Area */
+.evia-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid #e2e8f0;
+    background: #fafbfc;
+    flex-shrink: 0;
+}
+
+.evia-input {
+    flex: 1;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-family: var(--font-primary);
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+}
+
+.evia-input::placeholder {
+    color: #94a3b8;
+}
+
+.evia-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.evia-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.evia-send:hover {
+    transform: scale(1.06);
+    box-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
+}
+
+.evia-send svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .evia-chatbot {
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .evia-window {
+        width: calc(100vw - 32px);
+        max-height: calc(100vh - 140px);
+        right: -8px;
+        bottom: 68px;
+    }
+
+    .evia-toggle {
+        width: 54px;
+        height: 54px;
+    }
+
+    .evia-toggle-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .evia-messages {
+        min-height: 200px;
     }
 }
