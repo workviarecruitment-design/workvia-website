@@ -173,8 +173,16 @@ async function loadJobs() {
             requirements: job.requirements || '',
             benefits: job.benefits || '',
             image: job.image_url || null,
-            deadline: job.deadline
+            deadline: job.deadline,
+            created_at: job.created_at || job.published_at || null
         }));
+        
+        // Sort by newest first
+        jobs.sort((a, b) => {
+            const dateA = a.created_at ? new Date(a.created_at) : new Date(0);
+            const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+            return dateB - dateA;
+        });
         
         if (jobs.length === 0) {
             console.warn('⚠️ Brak opublikowanych ofert w CRM (sprawdź czy zaznaczono "Publikuj na stronie WWW")');

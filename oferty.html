@@ -410,6 +410,17 @@
             color: white;
         }
         
+        .modal-job-number {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-secondary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
         .modal-title {
             font-family: var(--font-display);
             font-size: 2rem;
@@ -766,6 +777,7 @@
             <div class="modal-header" id="modalHeader">
                 <img id="modalImage" src="" alt="" style="display: none;">
                 <div class="modal-header-content">
+                    <span class="modal-job-number" id="modalJobNumber"></span>
                     <h2 class="modal-title" id="modalTitle"></h2>
                     <p class="modal-location" id="modalLocation"></p>
                 </div>
@@ -802,8 +814,8 @@
     <div id="applicationModal" class="job-modal" style="display: none;">
         <div class="modal-content" style="max-width: 600px;">
             <button class="modal-close" onclick="closeApplicationModal()">&times;</button>
-            <div class="modal-header" style="background: linear-gradient(135deg, var(--color-primary), #c4941f); min-height: auto; padding: 2rem;">
-                <div class="modal-header-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, var(--color-primary), #c4941f); min-height: auto; padding: 2rem; overflow: visible;">
+                <div class="modal-header-content" style="position: relative; bottom: auto; left: auto; right: auto;">
                     <h2 class="modal-title" style="color: white; margin: 0;">📩 Aplikuj na stanowisko</h2>
                     <p id="applicationJobInfo" style="color: rgba(255,255,255,0.9); margin-top: 0.5rem;"></p>
                 </div>
@@ -932,6 +944,7 @@
                     experience: formatExperience(job.experience_level),
                     description: job.description || '',
                     image: job.image_url || null,
+                    created_at: job.created_at || job.published_at || null,
                     tags: [
                         job.employment_type ? formatEmploymentType(job.employment_type) : null,
                         job.remote_option ? 'Praca zdalna' : null,
@@ -939,6 +952,13 @@
                         job.language ? `Język: ${job.language}` : null
                     ].filter(Boolean).slice(0, 3)
                 }));
+                
+                // Sort by newest first
+                allJobs.sort((a, b) => {
+                    const dateA = a.created_at ? new Date(a.created_at) : new Date(0);
+                    const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+                    return dateB - dateA;
+                });
                 
                 filteredJobs = [...allJobs];
                 
@@ -1110,6 +1130,7 @@
             const job = filteredJobs[index];
             
             // Populate modal
+            document.getElementById('modalJobNumber').textContent = job.job_number || job.id;
             document.getElementById('modalTitle').textContent = job.title;
             document.getElementById('modalLocation').textContent = `📍 ${job.city}, ${job.country} ${getCountryFlag(job.country)}`;
             document.getElementById('modalSalary').textContent = job.salary;
