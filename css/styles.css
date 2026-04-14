@@ -1429,48 +1429,214 @@ button {
     border-radius: var(--border-radius);
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-md);
+    overflow: hidden;
 }
 
-.countries-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
+/* Country stats bar */
+.map-country-stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.country-card {
-    text-align: center;
-    padding: var(--spacing-md);
+.map-country-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
     background: var(--color-gray-light);
-    border-radius: var(--border-radius);
-    transition: all var(--transition-base);
-    cursor: pointer;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
 }
 
-.country-card:hover {
+.map-country-stat:hover {
     background: var(--color-secondary);
     color: var(--color-white);
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
 }
 
-.country-flag {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+.map-stat-flag {
+    font-size: 1.2rem;
 }
 
-.country-card h4 {
-    font-size: 1.25rem;
+.map-stat-count {
     font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.country-jobs {
     color: var(--color-primary);
-    font-weight: 600;
+    min-width: 1.2em;
+    text-align: center;
 }
 
-.country-card:hover .country-jobs {
-    color: var(--color-white);
+.map-country-stat:hover .map-stat-count {
+    color: var(--color-primary);
+}
+
+.map-stat-label {
+    font-weight: 500;
+}
+
+/* Custom map marker */
+.map-marker-custom {
+    background: transparent !important;
+    border: none !important;
+}
+
+.map-marker-pin {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--color-primary), #c4941f);
+    border: 3px solid white;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.map-marker-pin::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Cluster markers */
+.map-cluster-custom {
+    background: transparent !important;
+    border: none !important;
+}
+
+.map-cluster-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--color-secondary), #252b4f);
+    color: var(--color-primary);
+    border: 3px solid var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    font-family: var(--font-primary);
+    box-shadow: 0 4px 14px rgba(26,31,58,0.4);
+}
+
+/* Popup styles */
+.map-popup-container .leaflet-popup-content-wrapper {
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    padding: 0;
+    overflow: hidden;
+}
+
+.map-popup-container .leaflet-popup-content {
+    margin: 0;
+    min-width: 220px;
+}
+
+.map-popup-container .leaflet-popup-tip {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.map-popup {
+    padding: 1.2rem;
+    font-family: var(--font-primary);
+}
+
+.map-popup-flag {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.map-popup-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin: 0 0 0.4rem 0;
+    line-height: 1.3;
+}
+
+.map-popup-location {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    margin: 0 0 0.4rem 0;
+}
+
+.map-popup-salary {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin: 0 0 0.6rem 0;
+}
+
+.map-popup-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.map-popup-tags span {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    background: var(--color-gray-light);
+    border-radius: 20px;
+    color: var(--color-text);
+}
+
+.map-popup-btn {
+    display: block;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(135deg, var(--color-primary), #c4941f);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.map-popup-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+    color: white;
+}
+
+/* Override default Leaflet MarkerCluster styles */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+    background: transparent;
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+    background: transparent;
+}
+
+/* Map responsive */
+@media (max-width: 768px) {
+    #jobsMap {
+        height: 400px !important;
+    }
+    .map-country-stats {
+        gap: 0.6rem;
+    }
+    .map-country-stat {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
+    }
+    .map-stat-label {
+        display: none;
+    }
 }
 
 /* ===================================

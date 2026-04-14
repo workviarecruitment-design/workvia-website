@@ -9,10 +9,15 @@
     <meta property="og:description" content="Profesjonalna agencja rekrutacyjna - znajdź swoją wymarzoną pracę w Europie">
     <meta property="og:type" content="website">
     <title>WorkVIA - Recruitment | Praca w Zachodniej Europie</title>
-    <link rel="stylesheet" href="css/styles.css?v=20260406-2">
+    <link rel="stylesheet" href="css/styles.css?v=20260414-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
     
     <!-- Vercel Analytics -->
     <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
@@ -413,40 +418,38 @@
     <section class="map-section" id="mapa">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Nasze lokalizacje</h2>
-                <p class="section-subtitle">Działamy na terenie Europy Zachodniej w 5 krajach</p>
+                <h2 class="section-title">Mapa ofert pracy</h2>
+                <p class="section-subtitle">Znajdź pracę w swojej okolicy — kliknij znacznik, aby zobaczyć szczegóły</p>
             </div>
             <div class="map-container" data-aos="fade-up">
-                <div class="countries-grid">
-                    <div class="country-card">
-                        <div class="country-flag">🇩🇪</div>
-                        <h3>DE</h3>
-                        <h4>Niemcy</h4>
+                <div class="map-country-stats">
+                    <div class="map-country-stat" data-country="Niemcy">
+                        <span class="map-stat-flag">🇩🇪</span>
+                        <span class="map-stat-count">0</span>
+                        <span class="map-stat-label">Niemcy</span>
                     </div>
-                    <div class="country-card">
-                        <div class="country-flag">🇳🇱</div>
-                        <h3>NL</h3>
-                        <h4>Holandia</h4>
+                    <div class="map-country-stat" data-country="Holandia">
+                        <span class="map-stat-flag">🇳🇱</span>
+                        <span class="map-stat-count">0</span>
+                        <span class="map-stat-label">Holandia</span>
                     </div>
-                    <div class="country-card">
-                        <div class="country-flag">🇧🇪</div>
-                        <h3>BE</h3>
-                        <h4>Belgia</h4>
+                    <div class="map-country-stat" data-country="Belgia">
+                        <span class="map-stat-flag">🇧🇪</span>
+                        <span class="map-stat-count">0</span>
+                        <span class="map-stat-label">Belgia</span>
                     </div>
-                    <div class="country-card">
-                        <div class="country-flag">🇦🇹</div>
-                        <h3>AT</h3>
-                        <h4>Austria</h4>
+                    <div class="map-country-stat" data-country="Austria">
+                        <span class="map-stat-flag">🇦🇹</span>
+                        <span class="map-stat-count">0</span>
+                        <span class="map-stat-label">Austria</span>
                     </div>
-                    <div class="country-card">
-                        <div class="country-flag">🇨🇭</div>
-                        <h3>CH</h3>
-                        <h4>Szwajcaria</h4>
+                    <div class="map-country-stat" data-country="Szwajcaria">
+                        <span class="map-stat-flag">🇨🇭</span>
+                        <span class="map-stat-count">0</span>
+                        <span class="map-stat-label">Szwajcaria</span>
                     </div>
                 </div>
-            </div>
-            <div class="section-footer" style="text-align: center; margin-top: 3rem; color: var(--color-text-light);" data-aos="fade-up">
-                <p>Stale rozwijamy naszą działalność i poszerzamy dostępne lokalizacje, aby zapewnić jak najwięcej możliwości dla naszych kandydatów.</p>
+                <div id="jobsMap" style="width: 100%; height: 550px; border-radius: 12px;"></div>
             </div>
         </div>
     </section>
@@ -611,7 +614,11 @@
         </div>
     </div>
 
-    <script src="js/main.js?v=20260406-1"></script>
+    <!-- Leaflet Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    
+    <script src="js/main.js?v=20260414-1"></script>
     <script src="js/cookies.js?v=20260406-1"></script>
     <script src="js/contact-form.js?v=20260406-1"></script>
     <script src="js/chatbot.js?v=20260406-2"></script>

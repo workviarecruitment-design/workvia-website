@@ -174,7 +174,9 @@ async function loadJobs() {
             benefits: job.benefits || '',
             image: job.image_url || null,
             deadline: job.deadline,
-            created_at: job.created_at || job.published_at || null
+            created_at: job.created_at || job.published_at || null,
+            latitude: job.latitude ? parseFloat(job.latitude) : null,
+            longitude: job.longitude ? parseFloat(job.longitude) : null
         }));
         
         // Sort by newest first
@@ -356,46 +358,104 @@ function renderJobCards() {
 
 // Update country map with real job counts
 function updateCountryMap() {
-    const countryMapping = {
-        'Niemcy': { name: 'Niemcy', count: 0 },
-        'Holandia': { name: 'Holandia', count: 0 },
-        'Belgia': { name: 'Belgia', count: 0 },
-        'Francja': { name: 'Francja', count: 0 },
-        'Wielka Brytania': { name: 'Wielka Brytania', count: 0 },
-        'Irlandia': { name: 'Irlandia', count: 0 },
-        'Austria': { name: 'Austria', count: 0 },
-        'Szwajcaria': { name: 'Szwajcaria', count: 0 }
-    };
-    
-    // Count jobs per country
-    jobs.forEach(job => {
-        const country = job.country;
-        if (countryMapping[country]) {
-            countryMapping[country].count++;
+    const mapEl = document.getElementById('jobsMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    // Prevent re-init
+    if (mapEl._leaflet_id) return;
+
+    const map = L.map('jobsMap', {
+        center: [50.5, 10.5],
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 12,
+        scrollWheelZoom: false,
+        zoomControl: true
+    });
+
+    // Elegant grayscale tile layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Custom gold marker icon
+    const goldIcon = L.divIcon({
+        className: 'map-marker-custom',
+        html: '<div class="map-marker-pin"></div>',
+        iconSize: [30, 40],
+        iconAnchor: [15, 40],
+        popupAnchor: [0, -42]
+    });
+
+    // Marker cluster group
+    const markers = L.markerClusterGroup({
+        maxClusterRadius: 40,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        iconCreateFunction: function(cluster) {
+            const count = cluster.getChildCount();
+            return L.divIcon({
+                html: '<div class="map-cluster-icon">' + count + '</div>',
+                className: 'map-cluster-custom',
+                iconSize: [44, 44]
+            });
         }
     });
-    
-    // Update HTML (only if .country-jobs elements exist)
-    const countryCards = document.querySelectorAll('.country-card');
-    countryCards.forEach(card => {
-        const countElement = card.querySelector('.country-jobs');
-        
-        // Skip if country-jobs element doesn't exist (was removed from design)
-        if (!countElement) return;
-        
-        const countryName = card.querySelector('h4')?.textContent;
-        if (!countryName) return;
-        
-        const count = countryMapping[countryName]?.count || 0;
-        
-        if (count === 0) {
-            countElement.textContent = 'Brak ofert';
-        } else if (count === 1) {
-            countElement.textContent = '1 oferta';
-        } else if (count >= 2 && count <= 4) {
-            countElement.textContent = `${count} oferty`;
-        } else {
-            countElement.textContent = `${count} ofert`;
+
+    const bounds = [];
+
+    jobs.forEach(job => {
+        if (!job.latitude || !job.longitude) return;
+        // Filter out obviously wrong coords (e.g. Poland instead of Germany)
+        if (job.latitude < 44 || job.latitude > 58 || job.longitude < -2 || job.longitude > 20) {
+            // Allow entries within a generous Western Europe box
+        }
+
+        const marker = L.marker([job.latitude, job.longitude], { icon: goldIcon });
+
+        const popupContent = `
+            <div class="map-popup">
+                <div class="map-popup-flag">${job.flag}</div>
+                <h3 class="map-popup-title">${job.title}</h3>
+                <p class="map-popup-location">${job.location}, ${job.country}</p>
+                <p class="map-popup-salary">${job.salary}</p>
+                <div class="map-popup-tags">
+                    <span>${job.type}</span>
+                </div>
+                <a href="oferty.html?job=${job.id}" class="map-popup-btn">Zobacz szczegóły →</a>
+            </div>
+        `;
+
+        marker.bindPopup(popupContent, {
+            maxWidth: 280,
+            minWidth: 220,
+            className: 'map-popup-container'
+        });
+
+        markers.addLayer(marker);
+        bounds.push([job.latitude, job.longitude]);
+    });
+
+    map.addLayer(markers);
+
+    if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [30, 30], maxZoom: 6 });
+    }
+
+    // Update country stats
+    const countryCounts = {};
+    jobs.forEach(job => {
+        const c = job.country;
+        countryCounts[c] = (countryCounts[c] || 0) + 1;
+    });
+
+    document.querySelectorAll('.map-country-stat').forEach(el => {
+        const country = el.dataset.country;
+        const countEl = el.querySelector('.map-stat-count');
+        if (countEl && countryCounts[country]) {
+            countEl.textContent = countryCounts[country];
         }
     });
 }
