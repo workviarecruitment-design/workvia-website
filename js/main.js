@@ -176,7 +176,9 @@ async function loadJobs() {
             deadline: job.deadline,
             created_at: job.created_at || job.published_at || null,
             latitude: job.latitude ? parseFloat(job.latitude) : null,
-            longitude: job.longitude ? parseFloat(job.longitude) : null
+            longitude: job.longitude ? parseFloat(job.longitude) : null,
+            postal_code: (job.postal_code || '').trim(),
+            city: job.city || ''
         }));
         
         // Sort by newest first
@@ -364,6 +366,55 @@ function updateCountryMap() {
     // Prevent re-init
     if (mapEl._leaflet_id) return;
 
+    // Country bounding boxes for coordinate validation
+    const countryBounds = {
+        'Niemcy':     { latMin: 47.2, latMax: 55.1, lngMin: 5.8, lngMax: 15.1 },
+        'Germany':    { latMin: 47.2, latMax: 55.1, lngMin: 5.8, lngMax: 15.1 },
+        'Holandia':   { latMin: 50.7, latMax: 53.6, lngMin: 3.3, lngMax: 7.3 },
+        'Netherlands':{ latMin: 50.7, latMax: 53.6, lngMin: 3.3, lngMax: 7.3 },
+        'Belgia':     { latMin: 49.4, latMax: 51.6, lngMin: 2.5, lngMax: 6.5 },
+        'Belgium':    { latMin: 49.4, latMax: 51.6, lngMin: 2.5, lngMax: 6.5 },
+        'Austria':    { latMin: 46.3, latMax: 49.1, lngMin: 9.5, lngMax: 17.2 },
+        'Szwajcaria': { latMin: 45.8, latMax: 47.9, lngMin: 5.9, lngMax: 10.5 },
+        'Switzerland':{ latMin: 45.8, latMax: 47.9, lngMin: 5.9, lngMax: 10.5 },
+        'Luksemburg': { latMin: 49.4, latMax: 50.2, lngMin: 5.7, lngMax: 6.6 },
+        'Luxembourg': { latMin: 49.4, latMax: 50.2, lngMin: 5.7, lngMax: 6.6 },
+        'Francja':    { latMin: 41.3, latMax: 51.1, lngMin: -5.1, lngMax: 9.6 },
+        'France':     { latMin: 41.3, latMax: 51.1, lngMin: -5.1, lngMax: 9.6 }
+    };
+
+    function isCoordValidForCountry(lat, lng, country) {
+        const b = countryBounds[country];
+        if (!b) return lat >= 44 && lat <= 58 && lng >= -5 && lng <= 17;
+        return lat >= b.latMin && lat <= b.latMax && lng >= b.lngMin && lng <= b.lngMax;
+    }
+
+    // Nominatim geocoding with localStorage cache
+    function geocodeJob(job) {
+        const cacheKey = 'geo_' + job.id + '_' + job.postal_code + '_' + job.city;
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+            try { return Promise.resolve(JSON.parse(cached)); } catch(e) {}
+        }
+
+        const query = [job.postal_code, job.city, job.country].filter(Boolean).join(', ');
+        if (!query || query === job.country) return Promise.resolve(null);
+
+        return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(query), {
+            headers: { 'Accept-Language': 'de' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data[0]) {
+                const result = { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+                localStorage.setItem(cacheKey, JSON.stringify(result));
+                return result;
+            }
+            return null;
+        })
+        .catch(() => null);
+    }
+
     const map = L.map('jobsMap', {
         center: [50.5, 10.5],
         zoom: 5,
@@ -373,13 +424,11 @@ function updateCountryMap() {
         zoomControl: true
     });
 
-    // Elegant map tiles with German labels
     L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
     }).addTo(map);
 
-    // Custom gold marker icon
     const goldIcon = L.divIcon({
         className: 'map-marker-custom',
         html: '<div class="map-marker-pin"></div>',
@@ -388,7 +437,6 @@ function updateCountryMap() {
         popupAnchor: [0, -42]
     });
 
-    // Marker cluster group
     const markers = L.markerClusterGroup({
         maxClusterRadius: 40,
         spiderfyOnMaxZoom: true,
@@ -403,16 +451,10 @@ function updateCountryMap() {
         }
     });
 
-    const bounds = [];
+    map.addLayer(markers);
 
-    jobs.forEach(job => {
-        if (!job.latitude || !job.longitude) return;
-        // Skip markers outside Western Europe (lat 44-58, lng -5 to 17)
-        if (job.latitude < 44 || job.latitude > 58 || job.longitude < -5 || job.longitude > 17) return;
-
-        const marker = L.marker([job.latitude, job.longitude], { icon: goldIcon });
-
-        const popupContent = `
+    function createPopup(job) {
+        return `
             <div class="map-popup">
                 <div class="map-popup-flag">${job.flag}</div>
                 <h3 class="map-popup-title">${job.title}</h3>
@@ -424,21 +466,54 @@ function updateCountryMap() {
                 <a href="oferty.html?job=${job.id}" class="map-popup-btn">Zobacz szczegóły →</a>
             </div>
         `;
+    }
 
-        marker.bindPopup(popupContent, {
+    function addMarker(lat, lng, job) {
+        const marker = L.marker([lat, lng], { icon: goldIcon });
+        marker.bindPopup(createPopup(job), {
             maxWidth: 280,
             minWidth: 220,
             className: 'map-popup-container'
         });
-
         markers.addLayer(marker);
-        bounds.push([job.latitude, job.longitude]);
-    });
+    }
 
-    map.addLayer(markers);
+    const bounds = [];
+    const toGeocode = [];
+
+    jobs.forEach(job => {
+        const hasCoords = job.latitude && job.longitude;
+        const coordsValid = hasCoords && isCoordValidForCountry(job.latitude, job.longitude, job.country);
+
+        if (coordsValid) {
+            addMarker(job.latitude, job.longitude, job);
+            bounds.push([job.latitude, job.longitude]);
+        } else if (job.city || job.postal_code) {
+            // Coords missing or wrong — queue for geocoding
+            toGeocode.push(job);
+        }
+    });
 
     if (bounds.length > 0) {
         map.fitBounds(bounds, { padding: [30, 30], maxZoom: 6 });
+    }
+
+    // Geocode jobs with bad/missing coords (rate-limited 1 req/sec)
+    if (toGeocode.length > 0) {
+        let i = 0;
+        function geocodeNext() {
+            if (i >= toGeocode.length) return;
+            const job = toGeocode[i++];
+            geocodeJob(job).then(result => {
+                if (result && isCoordValidForCountry(result.lat, result.lng, job.country)) {
+                    addMarker(result.lat, result.lng, job);
+                    bounds.push([result.lat, result.lng]);
+                }
+                setTimeout(geocodeNext, 1100); // respect Nominatim 1 req/sec
+            });
+        }
+        geocodeNext();
+        console.log(`🗺️ Geokodowanie ${toGeocode.length} ofert z błędnymi koordynatami...`);
     }
 
     // Update country stats
