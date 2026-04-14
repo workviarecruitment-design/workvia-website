@@ -1625,7 +1625,7 @@ button {
 /* Map responsive */
 @media (max-width: 768px) {
     #jobsMap {
-        height: 400px !important;
+        height: 500px !important;
     }
     .map-country-stats {
         gap: 0.6rem;
