@@ -369,7 +369,7 @@ function updateCountryMap() {
         zoom: 5,
         minZoom: 4,
         maxZoom: 12,
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
         zoomControl: true
     });
 
