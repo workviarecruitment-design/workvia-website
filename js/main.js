@@ -373,10 +373,9 @@ function updateCountryMap() {
         zoomControl: true
     });
 
-    // Elegant grayscale tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
+    // Elegant map tiles with German labels
+    L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
     }).addTo(map);
 
@@ -408,10 +407,8 @@ function updateCountryMap() {
 
     jobs.forEach(job => {
         if (!job.latitude || !job.longitude) return;
-        // Filter out obviously wrong coords (e.g. Poland instead of Germany)
-        if (job.latitude < 44 || job.latitude > 58 || job.longitude < -2 || job.longitude > 20) {
-            // Allow entries within a generous Western Europe box
-        }
+        // Skip markers outside Western Europe (lat 44-58, lng -5 to 17)
+        if (job.latitude < 44 || job.latitude > 58 || job.longitude < -5 || job.longitude > 17) return;
 
         const marker = L.marker([job.latitude, job.longitude], { icon: goldIcon });
 
