@@ -165,7 +165,7 @@ async function loadJobs() {
             country: job.country || job.location || 'Europa',
             flag: getCountryFlag(job.country || job.location),
             location: job.city || job.location || 'Różne lokalizacje',
-            salary: formatSalary(job.salary_min, job.salary_max, job.salary_currency, job.hourly_rate),
+            salary: job.salary_text || formatSalary(job.salary_min, job.salary_max, job.salary_currency, job.hourly_rate),
             type: formatEmploymentType(job.employment_type),
             experience: formatExperience(job.experience_level),
             tags: getTags(job),
